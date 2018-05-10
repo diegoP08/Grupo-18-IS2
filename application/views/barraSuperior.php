@@ -47,7 +47,7 @@
     <div class="col-10">
       <div class="row justify-content-end">
         <div style="margin-top: 10px; margin-right: 10px">
-          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>registro">REGISTRARSE</a>
+          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>index.php/Cregistro">REGISTRARSE</a>
           <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>ingreso">INICIAR SESIÓN</a>
         </div>
       </div>
