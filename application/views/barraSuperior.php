@@ -6,7 +6,7 @@ if (/*isset($_SESSION['email'])*/ false){
   <div class="container">
     <div class="row">
       <div class="col-2">
-        <a href="<?php echo base_url() ?>inicio" class="navbar-brand">
+        <a href="<?= site_url('inicio')?>" class="navbar-brand">
           <img src="<?php echo base_url() ?>assets/img/LogoA.png" style="width: 100px">
         </a>
       </div>
@@ -25,9 +25,9 @@ if (/*isset($_SESSION['email'])*/ false){
           </div>
         </div>
         <ul class="nav" style="margin-left: 67.575px">
-          <li class="nav-item"><a href="<?php echo base_url() ?>inicio" class="nav-link" style="color: #f37277"> <h5 >INICIO</h5></a> </li>
+          <li class="nav-item"><a href="<?=site_url('/inicio') ?>" class="nav-link" style="color: #f37277"> <h5 >INICIO</h5></a> </li>
           <li class="nav-item"><a href="#" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
-          <li class="nav-item"><a href="<?=site_url("/publicarViaje") ?>" class="nav-link" style="color: #f37277"> <h5>PUBLICAR VIAJE</h5> </a> </li>
+          <li class="nav-item"><a href="<?=site_url('/publicarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>PUBLICAR VIAJE</h5> </a> </li>
           <li class="nav-item"><a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
           <li class="nav-item"></li>
         </ul>
@@ -40,19 +40,19 @@ if (/*isset($_SESSION['email'])*/ false){
 <div class="container" style="background-image:url(<?php echo base_url() ?>assets/img/fondo-translucido.png);">
   <div class="row">
     <div class="col-2">
-      <a href="<?php echo base_url() ?>" class="navbar-brand">
+      <a href="<?= site_url() ?>" class="navbar-brand">
         <img src="<?php echo base_url() ?>assets/img/LogoA.png" style="width: 100px">
       </a>
     </div>
     <div class="col-10">
       <div class="row justify-content-end">
         <div style="margin-top: 10px; margin-right: 10px">
-          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>index.php/Cregistro">REGISTRARSE</a>
-          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>index.php/ingresoC">INICIAR SESIÓN</a>
+          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?= site_url('Cregistro') ?>">REGISTRARSE</a>
+          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?= site_url('ingresoC') ?>">INICIAR SESIÓN</a>
         </div>
       </div>
       <ul class="nav">
-        <li class="nav-item"> <a href="<?php echo base_url() ?>" class="nav-link" style="color: #f37277"> <h5>INICIO</h5></a> </li>
+        <li class="nav-item"> <a href="<?= site_url() ?>" class="nav-link" style="color: #f37277"> <h5>INICIO</h5></a> </li>
         <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>SOBRE NOSOTROS</h5> </a> </li>
         <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
