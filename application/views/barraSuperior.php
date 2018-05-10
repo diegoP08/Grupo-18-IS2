@@ -1,8 +1,4 @@
 <?php
-  session_start();
-  $_SESSION['email'] = 'asd';
-  $_SESSION['nombre'] = 'Diego';
-  $_SESSION['apellido'] = 'Prince';
   if (isset($_SESSION['email'])){
 ?>
 <!-- Barra de que se muestra si esta logueado -->
@@ -11,7 +7,7 @@
     <div class="row">
       <div class="col-2">
         <a href="<?php echo base_url() ?>inicio" class="navbar-brand">
-          <img src="<?php echo base_url() ?>assets/img/LogoA.jpg" style="width: 100px">
+          <img src="<?php echo base_url() ?>assets/img/LogoA.png" style="width: 100px">
         </a>
       </div>
       <div class="col-10">
@@ -45,7 +41,7 @@
   <div class="row">
     <div class="col-2">
       <a href="<?php echo base_url() ?>" class="navbar-brand">
-        <img src="<?php echo base_url() ?>assets/img/LogoA.jpg" style="width: 100px">
+        <img src="<?php echo base_url() ?>assets/img/LogoA.png" style="width: 100px">
       </a>
     </div>
     <div class="col-10">
