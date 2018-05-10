@@ -108,5 +108,6 @@
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDZPHHY5uywExSQOzG0dEwv7ngg33WDEE&libraries=places&callback=initMap" async defer></script>
+    <?php require "scripts.php" ?>
   </body>
 </html>

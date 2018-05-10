@@ -1,5 +1,5 @@
 <?php
-  if (isset($_SESSION['email'])){
+if (/*isset($_SESSION['email'])*/ false){
 ?>
 <!-- Barra de que se muestra si esta logueado -->
 <div class="container-fluid" style="background-color: #333333">
@@ -15,7 +15,7 @@
           <a href="#"><img src="<?php echo base_url() ?>assets/img/usuario.jpg" style="height: 40px; width: 40px"></a>
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f37277">
-              <?php echo($_SESSION['nombre'] . " " . $_SESSION['apellido']) ?>
+              <?php /*echo($_SESSION['nombre'] . " " . $_SESSION['apellido'])*/ ?>
             </a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Perfil</a>
@@ -48,7 +48,7 @@
       <div class="row justify-content-end">
         <div style="margin-top: 10px; margin-right: 10px">
           <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>index.php/Cregistro">REGISTRARSE</a>
-          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>ingreso">INICIAR SESIÓN</a>
+          <a class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" href="<?php echo base_url() ?>index.php/ingresoC">INICIAR SESIÓN</a>
         </div>
       </div>
       <ul class="nav">
