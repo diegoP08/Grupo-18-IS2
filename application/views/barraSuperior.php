@@ -3,7 +3,7 @@ if (isset($_SESSION['email'])){
 ?>
 <!-- Barra de que se muestra si esta logueado -->
 
-<div class="container" style="background-image:url(<?php echo base_url() ?>assets/img/fondo-translucido.png);">
+<div class="container">
   <div class="row">
     <div class="col-2">
       <a href="<?= site_url('inicioC')?>" class="navbar-brand">
@@ -21,12 +21,14 @@ if (isset($_SESSION['email'])){
             <a class="dropdown-item" href="#">Perfil</a>
             <a class="dropdown-item" href="#">Viajes</a>
             <a class="dropdown-item" href="#">Pagos</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="<?=site_url('/ingresoC/cerrarSesion')?>">Cerrar Sesion</a>
           </div>
         </div>
       </div>
       <ul class="nav" style="margin-left: 67.575px">
         <li class="nav-item"><a href="<?=site_url('/inicioC') ?>" class="nav-link" style="color: #f37277"> <h5 >INICIO</h5></a> </li>
-        <li class="nav-item"><a href="#" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
+        <li class="nav-item"><a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"><a href="<?=site_url('/publicarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>PUBLICAR VIAJE</h5> </a> </li>
         <li class="nav-item"><a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
         <li class="nav-item"></li>
@@ -37,7 +39,7 @@ if (isset($_SESSION['email'])){
 
 <!-- Barra que se muestra si no esta logeado -->
 <?php }else{ ?>
-<div class="container" style="background-image:url(<?php echo base_url() ?>assets/img/fondo-translucido.png);">
+<div class="container">
   <div class="row">
     <div class="col-2">
       <a href="<?= site_url() ?>" class="navbar-brand">
@@ -54,7 +56,7 @@ if (isset($_SESSION['email'])){
       <ul class="nav" style="margin-left: 67.575px">
         <li class="nav-item"> <a href="<?= site_url() ?>" class="nav-link" style="color: #f37277"> <h5>INICIO</h5></a> </li>
         <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>SOBRE NOSOTROS</h5> </a> </li>
-        <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
+        <li class="nav-item"> <a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
       </ul>
     </div>

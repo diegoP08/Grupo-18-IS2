@@ -49,6 +49,7 @@ class IngresoC extends CI_Controller{
 
 	public function cerrarSesion(){
 		$this->session->sess_destroy();
+		redirect('start');
 	}
 
 	public function error($str){

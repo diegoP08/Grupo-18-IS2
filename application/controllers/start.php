@@ -22,4 +22,12 @@ class Start extends CI_Controller {
 	{
 		$this->load->view('start');
 	}
+	public function sobreNosotros()
+	{
+		$this->load->view('sobreNosotrosV');
+	}
+	public function contacto()
+	{
+		$this->load->view('contactoV');
+	}
 }
