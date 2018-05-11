@@ -1,3 +1,4 @@
+<?php if (isset($_SESSION['email'])){redirect("inicioC");} ?>
 <!DOCTYPE html>
 <html style="height: 100%">
 	<?php require "head.php" ?>

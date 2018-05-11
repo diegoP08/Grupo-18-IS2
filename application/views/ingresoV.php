@@ -1,3 +1,4 @@
+<?php if (isset($_SESSION['email'])){redirect("inicioC","refresh");} ?>
 <!DOCTYPE html>
 <html lang="en" style="height: 100%;">
 <?php require "head.php" ?>
@@ -10,18 +11,15 @@
         <div class="" style="background-color: #f37277; padding: 30px">
       			<h1> Iniciar Sesión </h1>
       			<p>Ingresa tus datos de usuario para ingresar al sistema</p>
-      			<?php if(isset($_SESSION['login'])){
-      				echo $error;
-            }
-            ?>
+            <?php echo validation_errors('<div class="alert alert-danger">','</div>'); ?>
       			<form action="<?php echo base_url() ?>index.php/ingresoC/login" method="POST">
       				<div class="form-group">
-      					<label for="username">Email</label>
-      					<input class="form-control" name="username" placeholder="email" id="username" type="text" required>
+      					<label for="email">Email</label>
+      					<input class="form-control" name="email" placeholder="email" id="email" type="text" required>
       				</div>
       				<div class="form-group">
-      					<label for="password">Contraseña</label>
-      					<input class="form-control" name="password" placeholder="contraseña" id="password" type="password" required>
+      					<label for="contrasena">Contraseña</label>
+      					<input class="form-control" name="contrasena" placeholder="contraseña" id="contrasena" type="password" required>
       				</div>
       				<div class="boton">
       					<button class="btn btn-info btn-lg btn-responsive" name="login">Ingresar </button>

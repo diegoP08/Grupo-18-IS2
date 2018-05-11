@@ -1,27 +1,27 @@
+<?php if (! isset($_SESSION['email'])){redirect("start");} ?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" style="height:100%">
     <?php require "head.php" ?>
-  <body>
+  <body style="background-image: url(<?php echo base_url() ?>assets/img/fondo1.png); background-repeat:repeat;height: 100%;">
     <?php require "barraSuperior.php" ?>
-    <br>
-    <h3 align="center">Ingrese los datos de su publicación</h3>
-    <div class="container">
+    <div class="container clearfix" style="background: rgba(0,0,0,0.5)">
+      <h3 align="center">Ingrese los datos de su publicación</h3>
       <br>
       <div class="col" style="padding-right: 100px; padding-left: 100px;">
-        <form>
+        <form action="" method="post">
           <div class="row">
             <div class="col-6">
               <div class="form-group">
                 <label for="salida" class="mb-0">Desde:</label>
-                <small class="form-text text-muted mt-0">Seleccione una ciudad de las recomendadas en los campos de selección</small>
-                <input type="text" class="form-control" id="salida" required>
+                <small class="form-text mt-0">Seleccione una ciudad de las recomendadas en los campos de selección</small>
+                <input type="text" class="form-control" id="salida" name="salida" required>
               </div>
             </div>
             <div class="col-6">
               <div class="form-group">
                 <label for="destino" class="mb-0">Hasta:</label>
-                <small class="form-text text-muted mt-0">Seleccione una ciudad de las recomendadas en los campos de selección</small>
-                <input type="text" class="form-control" id="destino" required>
+                <small class="form-text mt-0">Seleccione una ciudad de las recomendadas en los campos de selección</small>
+                <input type="text" class="form-control" id="destino" name="destino" required>
               </div>
             </div>
           </div>
@@ -30,13 +30,13 @@
             <div class="col-3">
               <div class="form-group">
                 <label for="fecha">Fecha de salida:</label>
-                <input type="date" class="form-control" id="fecha" required>
+                <input type="date" class="form-control" id="fecha" name="fecha" required>
               </div>
             </div>
             <div class="col-3">
               <div class="form-group">
                 <label for="hora">Hora de salida:</label>
-                <input type="time" class="form-control" id="hora" required>
+                <input type="time" class="form-control" id="hora" name="hora" required>
               </div>
             </div>
             <div class="col-6">
@@ -44,11 +44,11 @@
                 <label>Duracion:</label>
                 <div class="row">
                   <div class="col-5">
-                    <input type="number" class="form-control" id="duracionHrs" max="72" required>
+                    <input type="number" class="form-control" id="duracionHrs" name="duracionHrs" max="72" required>
                   </div>
                   <h6 class="align-self-center">hrs</h6>
                   <div class="col-5">
-                    <input type="number" class="form-control" id="duracionMin" max="59" required>
+                    <input type="number" class="form-control" id="duracionMin" name="duracionMin" max="59" required>
                   </div>
                   <h6 class="align-self-center">min</h6>
                 </div>
@@ -59,27 +59,32 @@
           <div class="row">
             <div class="col-4">
               <label for="costo">Costo total del viaje:</label>
-              <input type="number" class="form-control" id="costo" required>
+              <input type="number" class="form-control" id="costo" name="costo" required>
             </div>
             <div class="col-4">
               <label for="cupo">Lugares disponibles:</label>
-              <input type="number" class="form-control" id="cupo" required>
+              <input type="number" class="form-control" id="cupo" name="cupo" required>
             </div>
             <div class="col-4">
               <label for="matricula">Matricula del vehículo:</label>
-              <input type="text" class="form-control" id="matricula" required>
+              <input type="text" class="form-control" id="matricula" name="matricula" required>
             </div>
           </div>
+          <br>
+          <div class="form-group">
+              <label for="descripcion" class="mb-0">Descripción de tu publicación:</label>
+              <small class="form-text mt-0">Puede ingresar datos adicionales del vehiculo, si quiere que sus pasajeros sean puntuales, etc</small>
+              <textarea name="descripcion" class="form-control"></textarea>
+          </div>
+          <br>
         </form>
-        <br>
         <div class="" id="notificacion"></div>
         <div class="row justify-content-center">
-            <button  class="btn btn-primary" onclick="comprobar()" name="button">Publicar Viaje</button>
+          <button  style="background-color: #f37277; border-color:#f37277" class="btn btn-primary" onclick="comprobar()" name="button">Publicar Viaje</button>
         </div>
+        <br>
       </div>
     </div>
-
-
 
     <script>
       var originAutocomplete
@@ -103,7 +108,29 @@
         if((!origen) || (! destino)){
           window.alert("Ingrese destino y origen")
         }else{
-          window.alert("todo bien hasta aca " + origen.formatted_address + " " + destino.formatted_address)
+          var nombreOrigen = origen.formatted_address;
+          var nombreDestino = destino.formatted_address;
+          var fecha = $("#fecha").val();
+          var hora = $('#hora').val();
+          var duracionHrs = $('#duracionHrs').val();
+          var duracionMin = $('duracionMin').val();
+          var costo = $('costo').val();
+          var cupo = $('cupo').val();
+          var matricual = $('matricual').val();
+          var descripcion = $('descripcion').val();
+          $.ajax({
+              url: "publicarViajeC/publicar",
+              type: "POST",
+              data: {origen: nombreOrigen, destino: nombreDestino},
+              success: function(respuesta){
+                if(respuesta){
+                  window.alert("hay respuesta");
+                }else{
+                  window.alert("no hay respuesta");
+                }
+                console.log(respuesta);
+              }
+          });
         }
       }
     </script>
