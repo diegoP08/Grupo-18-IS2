@@ -10,7 +10,7 @@
 				<div class="row justify-content-center">
 					<div class="col-6" style="background-color: #f37277 ;color: black; padding: 30px" id="advanced-search-form">
 						<h1 align="center">Registrarse</h1>
-						<form action="index.php/Cregistro/guardar" method="POST">
+						<form action="Cregistro/guardar" method="POST">
 							<div class="form-group">
 								<label for="email">Email</label>
 								<input type="Email" class="form-control" placeholder="Email" name="email">
