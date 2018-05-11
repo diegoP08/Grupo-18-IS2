@@ -10,26 +10,29 @@
 				<div class="row justify-content-center">
 					<div class="col-6" style="background-color: #f37277 ;color: black; padding: 30px" id="advanced-search-form">
 						<h1 align="center">Registrarse</h1>
+                        <?php  if($datos["exito"]){
+                            echo '<div class="alert alert-success">' .  $datos['exito'] . ' </div>';
+                        } ?> 
 						<form action="Cregistro/guardar" method="POST">
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input type="Email" class="form-control" placeholder="Email" name="email">
+								<input type="Email" class="form-control" placeholder="Email" name="email" required>
 							</div>
 							<div class="form-group">
 								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" placeholder="Nombre" name="nombre">
+								<input type="text" class="form-control" placeholder="Nombre" name="nombre" required>
 							</div>
 							<div class="form-group">
 								<label for="apellido">Apellido</label>
-								<input type="text" class="form-control" placeholder="Apellido" name="apellido">
+								<input type="text" class="form-control" placeholder="Apellido" name="apellido" required>
 							</div>
 							<div class="form-group">
 								<label for="contrasena">Contraseña</label>
-								<input type="password" class="form-control" placeholder="Contraseña" name="contrasena">
+								<input type="password" class="form-control" placeholder="Contraseña" name="contrasena" required>
 							</div>
 							<div class="form-group">
 								<label for="fechaDeNacimiento">Fecha De Nacimiento</label>
-								<input type="date" class="form-control" placeholder="fechaDeNacimiento" max="<?php echo date('Y-m-d') ?>" name="fechaDeNacimiento" >
+								<input type="date" class="form-control" placeholder="fechaDeNacimiento" max="<?php echo date('Y-m-d') ?>" name="fechaDeNacimiento" required>
 							</div>
 							<div class="row justify-content-center">
 								<button type="submit" class="btn btn-info btn-lg btn-responsive" id="Registrarse" align="center"> Registrarse</button>

@@ -13,19 +13,9 @@ class Cregistro extends CI_Controller
 		$this->load->view('Vregistro');
 	}
 	public function guardar(){
-		$param['email'] = $this->input->post('email');
-		$param['nombre'] = $this->input->post('nombre');
-		$param['apellido'] = $this->input->post('apellido');
-		$param['contrasena'] = $this->input->post('contrasena');
-		$param['fechaDeNacimiento'] = $this->input->post('fechaDeNacimiento');
-		$param['fotoPerfil'] = $this->input->post('fotoPerfil');
-		$param['sexo'] = $this->input->post('sexo');
-		$param['pais'] = $this->input->post('pais');
-		$param['provincia'] = $this->input->post('provincia');
-		$param['localidad'] = $this->input->post('localidad');
-		$param['celular'] = $this->input->post('celular');
-
-		$this->Mregistro->guardar($param);
-		
+		if($this->Mregistro->guardar()){
+			$datos = array('exito' => 'usuario registrado correctamente');
+			$this->load->view('Vregistro', $datos);
+		}
 	}
 }

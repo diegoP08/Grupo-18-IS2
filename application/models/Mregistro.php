@@ -11,21 +11,16 @@ class Mregistro extends CI_model
 		$this->load->database();
 	}
 
-	public function guardar($param){
+	public function guardar(){
 		$campos = array(
-			'email' =>$param['email'],
-			'nombre' =>$param['nombre'],
-			'apellido' =>$param['apellido'],
-			'contrasena' =>$param['contrasena'],
-			'fechaDeNacimiento' =>$param['fechaDeNacimiento'],
-			'fotoPerfil' =>"mezasa",
-			'sexo' =>$param['sexo'],
-			'pais' =>$param['pais'],
-			'provincia' =>$param['provincia'],
-			'localidad' =>$param['localidad'],
-			'celular' =>$param['celular']
+			'email' => $this->input->post('email'),
+			'nombre' => $this->input->post('nombre'),
+			'apellido' => $this->input->post('apellido'),
+			'contrasena' => $this->input->post('contrasena'),
+			'fechaDeNacimiento' => $this->input->post('fechaDeNacimiento'),
+			'fotoPerfil' =>"mezasa"
 		);
 		$this->db->insert('usuario',$campos);
-		echo "Usuario registrado correctamente";
+		return true ;
 	}
 }
