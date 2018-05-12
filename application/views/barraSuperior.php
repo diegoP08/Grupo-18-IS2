@@ -12,7 +12,7 @@ if (isset($_SESSION['email'])){
     </div>
     <div class="col-10">
       <div class="row justify-content-end" style="padding-right:15px;padding-top: 12px">
-        <a href="#"><img src="<?php echo base_url() ?>assets/img/usuario.jpg" style="height: 40px; width: 40px"></a>
+        <a href="#"><img src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" style="height: 40px; width: 40px"></a>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f37277">
             <?= ($_SESSION['nombre'] . " " . $_SESSION['apellido'])?>
@@ -21,6 +21,7 @@ if (isset($_SESSION['email'])){
             <a class="dropdown-item" href="#">Perfil</a>
             <a class="dropdown-item" href="#">Viajes</a>
             <a class="dropdown-item" href="#">Pagos</a>
+            <a class="dropdown-item" href="<?=site_url('/vehiculosC')?>">Vehiculos</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?=site_url('/ingresoC/cerrarSesion')?>">Cerrar Sesion</a>
           </div>
@@ -55,7 +56,7 @@ if (isset($_SESSION['email'])){
       </div>
       <ul class="nav" style="margin-left: 67.575px">
         <li class="nav-item"> <a href="<?= site_url() ?>" class="nav-link" style="color: #f37277"> <h5>INICIO</h5></a> </li>
-        <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>SOBRE NOSOTROS</h5> </a> </li>
+        <li class="nav-item"> <a href="<?=site_url('/start/sobreNosotros')?>" class="nav-link" style="color: #f37277"> <h5>SOBRE NOSOTROS</h5> </a> </li>
         <li class="nav-item"> <a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
       </ul>

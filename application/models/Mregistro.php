@@ -17,8 +17,7 @@ class Mregistro extends CI_model
 			'nombre' => $this->input->post('nombre'),
 			'apellido' => $this->input->post('apellido'),
 			'contrasena' => $this->input->post('contrasena'),
-			'fechaDeNacimiento' => $this->input->post('fechaDeNacimiento'),
-			'fotoPerfil' =>"mezasa"
+			'fechaDeNacimiento' => $this->input->post('fechaDeNacimiento')
 		);
 		$this->db->insert('usuario',$campos);
 		return true ;

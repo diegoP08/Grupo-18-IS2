@@ -12,7 +12,7 @@
 						<h1 align="center">Registrarse</h1>
                         <?php  if($datos["exito"]){
                             echo '<div class="alert alert-success">' .  $datos['exito'] . ' </div>';
-                        } ?> 
+                        } ?>
 						<form action="Cregistro/guardar" method="POST">
 							<div class="form-group">
 								<label for="email">Email</label>
