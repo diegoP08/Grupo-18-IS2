@@ -10,9 +10,15 @@
 				<div class="row justify-content-center">
 					<div class="col-6" style="background-color: #f37277 ;color: black; padding: 30px" id="advanced-search-form">
 						<h1 align="center">Registrarse</h1>
-                        <?php  if($datos["exito"]){
-                            echo '<div class="alert alert-success">' .  $datos['exito'] . ' </div>';
-                        } ?>
+                        <?php
+                        if($bool=='exito'){
+                            echo '<div class="alert alert-success" align="center"> usuario registrado correctamente </div>';
+                        }else{
+                            if($bool=='fracaso'){
+                             echo '<div class="alert alert-success" align="center"> usuario no registrado </div>';
+                            }
+                        }
+                            ?>
 						<form action="Cregistro/guardar" method="POST">
 							<div class="form-group">
 								<label for="email">Email</label>
