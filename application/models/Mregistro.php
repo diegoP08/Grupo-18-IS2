@@ -12,6 +12,14 @@ class Mregistro extends CI_model
 	}
 
 	public function guardar(){
+		$this->db->select('*');
+		$this->db->from('usuario');
+		$this->db->where(array('email' => ($this->input->post('email'))));
+		$query = $this->db->get();
+		$existeUsuario = $query->row();
+		if($existeUsuario){
+			return false;
+		}
 		$campos = array(
 			'email' => $this->input->post('email'),
 			'nombre' => $this->input->post('nombre'),

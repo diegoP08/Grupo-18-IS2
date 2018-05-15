@@ -18,7 +18,7 @@ if (isset($_SESSION['email'])){
             <?= ($_SESSION['nombre'] . " " . $_SESSION['apellido'])?>
           </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Perfil</a>
+            <a class="dropdown-item" href="<?=site_url('/verPerfilC')?>">Perfil</a>
             <a class="dropdown-item" href="#">Viajes</a>
             <a class="dropdown-item" href="#">Pagos</a>
             <a class="dropdown-item" href="<?=site_url('/vehiculosC')?>">Vehiculos</a>

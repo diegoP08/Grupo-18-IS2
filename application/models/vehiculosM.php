@@ -39,7 +39,7 @@ class VehiculosM extends CI_model{
 	public function obtenerDatosDeVehiculo(){
 		$this->db->select('*')->from('vehiculo')->where(array('id' => ($this->input->post('id'))));
 		$query = $this->db->get();
-		return ($query->result())[0];
+		return ($query->result()[0]);
 	}
 
 	public function modificarVehiculo(){
