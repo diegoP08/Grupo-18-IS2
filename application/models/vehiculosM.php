@@ -59,4 +59,10 @@ class VehiculosM extends CI_model{
 		}
 		return false;
 	}
+
+	public function cargarMatriculas(){
+		$this->db->select('matricula')->from('vehiculo')->where(array('idConductor' => ($_POST['email'])));
+		$query = $this->db->get();
+		return ($query->result())[0];
+	}
 }

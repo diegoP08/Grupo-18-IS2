@@ -63,16 +63,22 @@
                 <input type="number" class="form-control" id="costo" name="costo" required>
               </div>
               <div class="col-4">
+                <label for="matricula">Vehiculo: </label>
+                <select class="custom-select" id="matricula">
+                  <option selected>Seleccione un vehiculo</option>
+                  <!--<option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>-->
+                  <div id="listaDeMatriculas"> </div>
+                </select>
+              </div>
+              <div class="col-4" style="display: none">
                 <label for="cupo">Lugares disponibles:</label>
                 <input type="number" class="form-control" id="cupo" name="cupo" required>
               </div>
-              <div class="col-4">
-                <label for="matricula">Matricula del vehículo:</label>
-                <input type="text" class="form-control" id="matricula" name="matricula" required>
-              </div>
             </div>
             <br>
-            <div class="form-group">
+            <div class="form-group" style="color:white">
                 <label for="descripcion" class="mb-0">Descripción de tu publicación:</label>
                 <small class="form-text mt-0">Puede ingresar datos adicionales del vehiculo, si quiere que sus pasajeros sean puntuales, etc</small>
                 <textarea name="descripcion" class="form-control"></textarea>
@@ -136,6 +142,21 @@
         }
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDZPHHY5uywExSQOzG0dEwv7ngg33WDEE&libraries=places&callback=initMap" async defer></script>
+      <script>
+        function cargarMatriculas(){
+          $.ajax({
+              url: "vehiculosC/listaDeMatriculas",
+              type: "POST",
+              data: {},
+              success: function(respuesta){
+                document.getElementById("listaDeMatriculas").innerHTML = respuesta;
+              }
+          });
+        }
+      </script>
+      <script> //Carga la lista de matriculas cuando se carga la pagina
+        window.onload = cargarMatriculas;
+      </script>
       <?php require "scripts.php" ?>
     </div>
   </body>
