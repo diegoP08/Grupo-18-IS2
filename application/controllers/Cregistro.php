@@ -1,10 +1,10 @@
 <?php
 /**
-* 
+*
 */
 class Cregistro extends CI_Controller
 {
-	
+
 	function __construct(){
 		parent:: __construct();
 		$this->load->model('Mregistro');
@@ -21,7 +21,7 @@ class Cregistro extends CI_Controller
 				$this->load->view('Vregistro',$datos);
 				return true;
 			}else{
-				 $datos['bool'] = 'fracaso';
+				 $datos['bool'] = 'ya registrado';
 				 $this->load->view('Vregistro',$datos);
 				 return false;
 			}
