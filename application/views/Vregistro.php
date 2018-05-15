@@ -10,16 +10,16 @@
 				<div class="row justify-content-center">
 					<div class="col-6" style="background-color: #f37277 ;color: black; padding: 30px" id="advanced-search-form">
 						<h1 align="center">Registrarse</h1>
-                        <?php
-                        if($bool=='exito'){
-                            echo '<div class="alert alert-success" align="center"> usuario registrado correctamente </div>';
-                        }else{
-                            if($bool=='fracaso'){
-                             echo '<div class="alert alert-success" align="center"> usuario no registrado </div>';
-                            }
-                        }
-                            ?>
-						<form action="Cregistro/guardar" method="POST">
+	            <?php
+		            if($bool=='exito'){
+		              echo '<div class="alert alert-success" align="center"> Usuario registrado correctamente </div>';
+		            }elseif($bool=='fracaso'){
+		            	echo validation_errors('<div class="alert alert-danger" align="center">','</div>');
+		            }elseif($bool == 'ya registrado'){
+									echo '<div class="alert alert-danger" align="center"> El email ingresado ya esta registrado </div>';
+								}
+	            ?>
+						<form action="<?php echo base_url() ?>index.php/Cregistro/guardar" method="POST">
 							<div class="form-group">
 								<label for="email">Email</label>
 								<input type="Email" class="form-control" placeholder="Email" name="email" required>
@@ -41,7 +41,7 @@
 								<input type="date" class="form-control" placeholder="fechaDeNacimiento" max="<?php echo date('Y-m-d') ?>" name="fechaDeNacimiento" required>
 							</div>
 							<div class="row justify-content-center">
-								<button type="submit" class="btn btn-info btn-lg btn-responsive" id="Registrarse" align="center"> Registrarse</button>
+								<button type="submit" class="btn btn-info btn-lg btn-responsive" id="Registrarse" align="center">Registrarse</button>
 							</div>
 						</form>
 					</div>
@@ -49,5 +49,6 @@
 			<br>
 			</div>
 		</div>
+		<?php require "scripts.php" ?>
 	</body>
 </html>
