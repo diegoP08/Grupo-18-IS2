@@ -6,7 +6,7 @@ class VehiculosM extends CI_model{
 		parent:: __construct();
 	}
 
-	public function guardar(){
+	public function guardar(){ // en POST estan los datos del vehiculo a guardar en la BD
 		$this->db->select('*');
 		$this->db->from('vehiculo');
 		$this->db->where(array('matricula' => ($this->input->post('matricula'))));
@@ -26,23 +26,23 @@ class VehiculosM extends CI_model{
 		return false;
 	}
 
-	public function misVehiculos(){
+	public function misVehiculos(){ // los datos de los vehiculos del usuario en SESSION
 		$this->db->select('*')->from('vehiculo')->where(array('idConductor' => $_SESSION['email'] ));
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function eliminarVehiculo(){
+	public function eliminarVehiculo(){ // en POST esta el id del vehiculo que quiero eliminar
 		$this->db->delete('vehiculo', array('id' => ($this->input->post('id'))));
 	}
 
-	public function obtenerDatosDeVehiculo(){
+	public function obtenerDatosDeVehiculo(){ // En POST esta el id del vehiculo del cual quiero los datos
 		$this->db->select('*')->from('vehiculo')->where(array('id' => ($this->input->post('id'))));
 		$query = $this->db->get();
 		return ($query->result()[0]);
 	}
 
-	public function modificarVehiculo(){
+	public function modificarVehiculo(){ //En POST estan los datos a modificar del vehiculo
 		$id = $this->input->post('id');
 		$matricula = $this->input->post('matricula');
 		$matriculaTomada = $this->db->query("SELECT * FROM vehiculo WHERE id != $id AND matricula = '$matricula'");
@@ -60,9 +60,17 @@ class VehiculosM extends CI_model{
 		return false;
 	}
 
-	public function cargarMatriculas(){
-		$this->db->select('matricula')->from('vehiculo')->where(array('idConductor' => ($_POST['email'])));
+	public function listaDeMatriculas(){ // Devuelve las matriculas del usuario en SESSION
+		$this->db->select('matricula')->from('vehiculo')->where(array('idConductor' => $_SESSION['email']));
 		$query = $this->db->get();
-		return ($query->result())[0];
+		return $query->result();
+	}
+
+	public function obtenerAsientosVehiculo(){ // En POST esta la matricula
+		$matricula = $this->input->post('matricula');
+		$this->db->select('asientos')->from('vehiculo')->where(array('matricula' => $matricula));
+		$query = $this->db->get();
+		$vehiculo = $query->result()[0];
+		return $vehiculo->asientos;
 	}
 }
