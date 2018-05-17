@@ -4,7 +4,7 @@ class VehiculosC extends CI_Controller {
 	public function index(){
 		$this->load->view('vehiculosV');
 	}
-	public function obtenerFormularioAnadir(){
+	public function obtenerFormularioAnadir(){ // devuelve en html el formulario a ingresar para agregar un vehiculo
 		echo 	'<div class="row justify-content-center" id="formularioAgregar">
 						<div class="col-5">
 							<br>
@@ -36,7 +36,7 @@ class VehiculosC extends CI_Controller {
 					</div>';
 	}
 
-  public function anadir(){
+  public function anadir(){ // En POST los datos a añadir del vehiculo
     $this->form_validation->set_rules('matricula', 'Matricula','required');
 		$this->form_validation->set_rules('modelo', 'Modelo','required');
 		$this->form_validation->set_rules('marca', 'Marca','required');
@@ -54,7 +54,7 @@ class VehiculosC extends CI_Controller {
 		}
   }
 
-	public function listaDeVehiculos(){
+	public function listaDeVehiculos(){ // Vehiculos del usuario en SESSION
 		$this->load->model('vehiculosM');
 		$listaVehiculos = $this->vehiculosM->misVehiculos();
 		if (! $listaVehiculos){
@@ -88,12 +88,12 @@ class VehiculosC extends CI_Controller {
 		}
 	}
 
-	public function eliminarVehiculo(){
+	public function eliminarVehiculo(){ // eliminar el vehiculo, en POST esta el id
 		$this->load->model('vehiculosM');
 		$this->vehiculosM->eliminarVehiculo();
 	}
 
-	public function obtenerFormularioModificacion(){
+	public function obtenerFormularioModificacion(){ // Retorna el formulario html a rellenar para modificar un vehiculo
 		$this->load->model('vehiculosM');
 		$vehiculo = $this->vehiculosM->obtenerDatosDeVehiculo();
 		$id = $_POST['id'];
@@ -131,7 +131,7 @@ class VehiculosC extends CI_Controller {
 					</div>';
 	}
 
-	public function modificarVehiculo(){
+	public function modificarVehiculo(){ // en POST estan los datos a ingresar
 		$this->load->model('vehiculosM');
 		$this->form_validation->set_rules('matricula', 'Matricula','required');
 		$this->form_validation->set_rules('modelo', 'Modelo','required');
@@ -147,6 +147,20 @@ class VehiculosC extends CI_Controller {
 		}else{
 			echo '<div class="alert alert-danger"> Complete todos los campos </div>';
 		}
+	}
+
+	public function listaDeMatriculas(){ // obtener las matriculas de los vehiculos del usuario de la SESSION
+		$this->load->model('vehiculosM');
+		$vehiculos = $this->vehiculosM->listaDeMatriculas();
+		foreach ($vehiculos as $vehiculo){
+			$matricula = $vehiculo->matricula;
+			echo '<option value="',$matricula,'">',$matricula,'</option>';
+		}
+	}
+
+	public function obtenerCapacidadVehiculo(){ // en POST esta la matricula del vehiculo del cual busco su capacidad
+		$this->load->model('vehiculosM');
+		echo $this->vehiculosM->obtenerAsientosVehiculo();
 	}
 
 }

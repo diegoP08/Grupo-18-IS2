@@ -38,7 +38,8 @@
     </div>
   </body>
   <?php require 'scripts.php' ?>
-  <script> //Actualiza la listaVehiculos cuando se da click a la pestaña
+  <script>
+  //Actualiza la listaVehiculos cuando se da click a la pestaña y cierra pestaña modificar si esta abierta
     $('#tab li:nth-child(1) a').on('click', function (e) {
       e.preventDefault();
       $.ajax({
@@ -51,8 +52,9 @@
             document.getElementById("listaVehiculos").style.overflowY = "scroll";
           }
       });
-      $(this).tab('show');
+      //$(this).tab('show');
     })
+  //Resetea/actualiza el formulario cuando se da click a la pestaña y cierra pestaña modificar si esta abierta.
     $('#tab li:nth-child(2) a').on('click', function (e) {
       e.preventDefault();
       $.ajax({
@@ -65,7 +67,7 @@
             document.getElementById("formulario").innerHTML = respuesta;
           }
       });
-      $(this).tab('show');
+      //$(this).tab('show');
     })
   </script>
   <script> // Ejecuta la logica para añadir un vehiculo al usuario
