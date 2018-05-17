@@ -1,4 +1,3 @@
-<?php echo var_dump($puntuacion); ?>
 <?php if (! isset($_SESSION['email'])){redirect("start");} ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr" style="height:100%">
