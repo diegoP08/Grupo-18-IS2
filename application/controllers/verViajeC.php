@@ -5,7 +5,6 @@
 class verViajeC extends CI_controller {
 	
 	public function index() {
-		echo "trola";
 	}
 
 	public function cargarViaje($idViaje) {
