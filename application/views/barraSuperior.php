@@ -12,7 +12,7 @@ if (isset($_SESSION['email'])){
     </div>
     <div class="col-10">
       <div class="row justify-content-end" style="padding-right:15px;padding-top: 12px">
-        <a href="#"><img src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" style="height: 40px; width: 40px"></a>
+        <a href="<?=site_url('/verPerfilC')?>"><img src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" style="height: 40px; width: 40px"></a>
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #f37277">
             <?= ($_SESSION['nombre'] . " " . $_SESSION['apellido'])?>
@@ -31,7 +31,7 @@ if (isset($_SESSION['email'])){
         <li class="nav-item"><a href="<?=site_url('/inicioC') ?>" class="nav-link" style="color: #f37277"> <h5 >INICIO</h5></a> </li>
         <li class="nav-item"><a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"><a href="<?=site_url('/publicarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>PUBLICAR VIAJE</h5> </a> </li>
-        <li class="nav-item"><a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
+        <li class="nav-item"><a href="<?=site_url('/buscarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
         <li class="nav-item"></li>
       </ul>
     </div>
@@ -58,7 +58,7 @@ if (isset($_SESSION['email'])){
         <li class="nav-item"> <a href="<?= site_url() ?>" class="nav-link" style="color: #f37277"> <h5>INICIO</h5></a> </li>
         <li class="nav-item"> <a href="<?=site_url('/start/sobreNosotros')?>" class="nav-link" style="color: #f37277"> <h5>SOBRE NOSOTROS</h5> </a> </li>
         <li class="nav-item"> <a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
-        <li class="nav-item"> <a href="#" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
+        <li class="nav-item"> <a href="<?=site_url('/buscarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
       </ul>
     </div>
   </div>

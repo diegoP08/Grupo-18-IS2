@@ -16,13 +16,11 @@
                   <td rowspan="7" colspan="2" class="avatar-cell" style="width: 80px">
                       <div>
                         <div class="qq-uploader-selector text-center">
-                          <img src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" class="avatar-original img-thumbnail">
-                          <?php echo $error; ?>  
+                          <img style="width:266px; height:266px;" src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" class="avatar-original img-thumbnail">
+                          <?php echo $error; ?>
                           <?php echo form_open_multipart('verPerfilC/upload_file'); ?>
-
-                            <input type="file" name="userfile" size="20" />
-                            <input type="submit" value="upload" />
-
+                            <input class="btn btn-primary" id="cargarImagen" style="visibility:hidden" onchange="this.form.submit()" type="file" name="userfile" size="20" />
+                            <label for="cargarImagen" class="btn btn-primary" style="background-color: #f37277; border-color:#f37277">Cambiar imagen</label>
                           </form>
 
                         </div>

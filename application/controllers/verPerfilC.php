@@ -33,25 +33,28 @@ class VerPerfilC extends CI_Controller {
 		}
 
 		public function upload_file(){
-                $config['upload_path']          = './assets/img/';
-								$config['overwrite'] = TRUE;
-								$new_name = $_SESSION['id'];
-								
-								$config['file_name'] = $new_name;
-                $config['allowed_types']        = 'gif|jpg|png|pdf|doc';
-                $config['max_size']             = 100;
-                $config['max_width']            = 1024;
-                $config['max_height']           = 768;
-                $this->load->library('upload', $config);
-								$this->upload->initialize($config);
-								if (  $this->upload->do_upload('userfile'))
-                {
-                    $data = array('upload_data' => $this->upload->data());
-										$nuevo = array('fotoPerfil' => $new_name);
-										$this->db->where('email', $_SESSION['email']);
-										$this->db->update('usuario', $nuevo);
-										$this->index();
-                }
+			// elimina y si la carga falla tira error la proxima vez (solucionar).
+      $config['upload_path'] = './assets/img/';
+			$config['overwrite'] = FALSE;
+			$new_name = $_SESSION['id'] . "_";
+			$config['file_name'] = $new_name;
+      $config['allowed_types']        = 'jpg|png';
+      $config['max_size']             = 100;
+      $config['max_width']            = 1024;
+      $config['max_height']           = 768;
+      $this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			if (  $this->upload->do_upload('userfile')){
+				if ($_SESSION['fotoPerfil'] != "usuario.jpg") {
+					unlink('./assets/img/' . $_SESSION['fotoPerfil']);
+				}
+        $data = array('upload_data' => $this->upload->data());
+				$_SESSION['fotoPerfil'] = $this->upload->data('file_name');
+				$nuevo = array('fotoPerfil' => $this->upload->data('file_name'));
+				$this->db->where('email', $_SESSION['email']);
+				$this->db->update('usuario', $nuevo);
+      }
+			redirect('/verPerfilC', 'refresh');
     }
 
 

@@ -3,7 +3,7 @@
 /**
 *
 */
-class verViajeM extends CI_model{
+class VerViajeM extends CI_model{
 
 	function __construct(){
 		parent:: __construct();

@@ -2,7 +2,7 @@
 /**
 *
 */
-class verViajeC extends CI_controller {
+class VerViajeC extends CI_controller {
 
 	public function index() {
 
