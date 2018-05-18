@@ -34,11 +34,11 @@
                 </tr>
                 <tr>
                   <th scope="row">Patente</th>
-                  <td colspan="1"><?php echo $matricula ?></td>
+                  <td><?php echo $matricula ?></td>
                   <th scope="row">Marca</th>
-                  <td><?php echo $marca; ?></td>
+                  <td colspan="2"><?php echo $marca; ?></td>
                   <th scope="row">Modelo</th>
-                  <td colspan="3"><?php echo $modelo; ?></td>
+                  <td colspan="2"><?php echo $modelo; ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Descripcion</th>
