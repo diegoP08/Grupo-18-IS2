@@ -14,22 +14,19 @@
                   <th scope="row" style="width: 200px; height: 5px">Nombre</th>
                   <td><?php echo $_SESSION['nombre']; ?></td>
                   <td rowspan="7" colspan="2" class="avatar-cell" style="width: 80px">
-                    <div id="avatar-uploader" class="img-avatar pull-right">
                       <div>
                         <div class="qq-uploader-selector text-center">
-                          <img src="<?php echo base_url() ?>assets/img/usuario.jpg" class="avatar-original img-thumbnail">
-                        <div class="img-controls">
-                          <div class="qq-upload-button-selector" style="position:relative; overflow: hidden; direction: ltr;">
-                            <div class="btn btn-xxs btn-primary" style="background-color: #f37277; border-color:#f37277; margin-top: 10px">
-                              <i class="fa fa-camera">Subir foto</i>
-                            </div>
-                            <?php // aca iria el input del boton?>
-                          </div>
-                        </div>
-                        <ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals"></ul>
+                          <img src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" class="avatar-original img-thumbnail">
+                          <?php echo $error; ?>  
+                          <?php echo form_open_multipart('verPerfilC/upload_file'); ?>
+
+                            <input type="file" name="userfile" size="20" />
+                            <input type="submit" value="upload" />
+
+                          </form>
+
                         </div>
                       </div>
-                    </div>
                   </td>
                 </tr>
                 <tr>
@@ -60,14 +57,13 @@
                   <th scope="row">Localidad</th>
                   <td><?php echo $_SESSION['localidad']; ?></td>
                   <td><strong>Calificacion</strong></td>
-                  <td><?php echo $puntuacion; ?>
-                  </td>
+                  <td><?php echo $puntuacion; ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Celular</th>
                   <td><?php echo $_SESSION['celular']; ?></td>
                   <td><strong>Monedero</strong></td>
-                  <td>0</td>
+                  <td><?php echo $monedero; ?></td>
                 </tr>
               </tbody>
             </table>

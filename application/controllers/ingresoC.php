@@ -27,6 +27,7 @@ class IngresoC extends CI_Controller{
 			if(!is_null($user)){
 				//setear las variables de sesion
 				//$_SESSION['user_logged'] = TRUE; sirve para usar mas adelante en user.php para siaber si esta logeado o no
+				$_SESSION['id'] = $user->id;
 				$_SESSION['email'] = $user->email;
 				$_SESSION['nombre'] = $user->nombre;
 				$_SESSION['apellido'] = $user->apellido;
