@@ -8,6 +8,7 @@ class PublicarViajeC extends CI_Controller {
 	public function publicar(){
 		$this->load->model('vehiculosM');
 		$this->load->model('publicarViajeM');
+
 		// controlo valores negativos y cero
 		if($_POST['cupo'] <= 0 || $_POST['duracionHrs'] < 0 || $_POST['duracionMin'] < 0 || $_POST['monto'] <= 0 || ($_POST['duracionHrs'] == 0 && $_POST['duracionMin'] == 0)){
 			echo '<div class="alert alert-danger">Ingrese valores admitidos</div>';
@@ -20,6 +21,13 @@ class PublicarViajeC extends CI_Controller {
 			return 0;
 		}
 
+		//controlo que el usuario no poseea calificaciones pendientes con mas de 30 dias
+		if ($this->publicarViajeM->obtenerCalificacionesPendientesDe30Dias()) {
+			echo '<div class="alert alert-danger">Posee calificaciones pendientes de un viaje realizado hace 30 dias o mas</div>';
+			return 0;
+		}
+
+		//empiezo con el alta de la/s publicacion/es
 		if ($_POST['tipo'] == "ocasional") {
 			date_default_timezone_set('America/Argentina/La_Rioja');
 			// controlo que fecha no sea menor a la de mañana (24horas), si es ocasional
@@ -35,7 +43,6 @@ class PublicarViajeC extends CI_Controller {
 			}
 		}else {
 			/*ATENCION: EN ESTE CASO ESTOY IGNORANDO SI HAY INTERPOSICIONES, ES DECIR, NO LAS GUARDO PERO TAMPOCO INFORMO AL USUARIO*/
-			//ARREGLAR PROBLEMA DE QUE NO DETECTA LOR "REPETIDOS"
 			date_default_timezone_set('America/Argentina/La_Rioja');
 			// fechaSalida sera para incrementar en dias, sumo 1 dia
 			$fechaSalida = date_add(new DateTime($_POST['fechaHoraSalida']), date_interval_create_from_date_string('1 days'));
