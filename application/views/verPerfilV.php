@@ -19,10 +19,13 @@
                           <img style="width:266px; height:266px;" src="<?php echo base_url() ?>assets/img/<?= $_SESSION['fotoPerfil'] ?>" class="avatar-original img-thumbnail">
                           <?php echo $error; ?>
                           <?php echo form_open_multipart('verPerfilC/upload_file'); ?>
-                            <input class="btn btn-primary" id="cargarImagen" style="visibility:hidden" onchange="this.form.submit()" type="file" name="userfile" size="20" />
-                            <label for="cargarImagen" class="btn btn-primary" style="background-color: #f37277; border-color:#f37277">Cambiar imagen</label>
+                            <div class="row">
+                                <input class="btn btn-primary" id="cargarImagen" style="visibility:hidden" onchange="this.form.submit()" type="file" name="userfile" size="20" />
+                              </div>
+                              <div class="row justify-content-center">
+                               <label for="cargarImagen" class="btn btn-primary" style="background-color: #f37277; border-color:#f37277">Cambiar imagen</label>
+                            </div>
                           </form>
-
                         </div>
                       </div>
                   </td>
