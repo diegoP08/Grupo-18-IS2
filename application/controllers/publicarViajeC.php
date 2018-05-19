@@ -88,7 +88,7 @@ class PublicarViajeC extends CI_Controller {
               <div class="form-group">
                 <div style="color: #FF0000; display:inline-block">*</div>
                 <label for="fecha">Fecha de salida:</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" min="',date('Y-m-d'),'">
+                <input type="date" class="form-control" id="fecha" name="fecha" min="',date('Y-m-d'),'" max="9999-12-31">
               </div>
             </div> ';
 					}

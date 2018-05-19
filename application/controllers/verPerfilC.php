@@ -9,15 +9,15 @@ class VerPerfilC extends CI_Controller {
             $this->load->library('form_validation');
         }
 
-		public function index(){
+		public function index($error = ' '){
 			$this->load->model('verPerfilM');
 			/////////////////// Monedero
-			$puntuacion['error'] = ' ';
+			$puntuacion['error'] = $error;
 			$viajes = $this->verPerfilM->miMonedero();
 			$puntuacion['monedero'] = 0;
 			foreach ($viajes as $viaje)
 			{
-			        $puntuacion['monedero']  += $viaje->monedero;
+				$puntuacion['monedero']  += $viaje->monedero;
 			}
 			$puntuacion['monedero'] = round($puntuacion['monedero'],2 );
 
@@ -53,8 +53,11 @@ class VerPerfilC extends CI_Controller {
 				$this->db->where('email', $_SESSION['email']);
 				$this->db->update('usuario', $nuevo);
 				$_SESSION['fotoPerfil'] = $this->upload->data('file_name');
+				redirect('/verPerfilC', 'refresh');
+      }else {
+				$this->index("imagenIncorrecta");
       }
-			redirect('/verPerfilC', 'refresh');
+
     }
 
 
