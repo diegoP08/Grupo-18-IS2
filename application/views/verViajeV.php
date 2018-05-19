@@ -11,7 +11,14 @@
               <tbody>
                 <tr>
                   <th scope="row" style="width: 200px; height: 5px">Conductor</th>
-                  <td colspan="7"><?php echo $creador ?></td>
+                  <td colspan="5"><?php echo $creador ?></td>
+                  <td colspan="2">
+                    <?php if(isset($_SESSION['email'])){ ?>
+                      <button class="btn btn-primary" href="mandarSolicitud" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
+                   <?php }else{ ?>
+                      <button class="btn btn-primary disabled" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
+                   <?php }?>
+                  </td>
                 </tr>
                 <tr>
                   <th scope="row" style="height: 5px">Desde:</th>
