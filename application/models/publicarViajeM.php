@@ -14,7 +14,14 @@ class PublicarViajeM extends CI_model{
     $miFechaHoraSalida = $_POST['fechaHoraSalida'];
     $miFechaHoraLlegada = date_add(new DateTime($miFechaHoraSalida) , $minutos)->format('Y-m-d H:i:s');;
     $email = $_SESSION['email'];
-		$query = $this->db->query("SELECT * FROM viaje WHERE idCreador = '$email' AND ((fechaHoraSalida BETWEEN '$miFechaHoraSalida' AND '$miFechaHoraLlegada') OR (fechaHoraLlegada BETWEEN '$miFechaHoraSalida' AND '$miFechaHoraLlegada')  OR (fechaHoraSalida <= '$miFechaHoraSalida' AND fechaHoraLlegada >= '$miFechaHoraLlegada'))");
+		$query = $this->db->query(
+			"SELECT *
+			FROM viaje
+			WHERE idCreador = '$email'
+				AND ((fechaHoraSalida BETWEEN '$miFechaHoraSalida' AND '$miFechaHoraLlegada')
+				OR (fechaHoraLlegada BETWEEN '$miFechaHoraSalida' AND '$miFechaHoraLlegada')
+				OR (fechaHoraSalida <= '$miFechaHoraSalida' AND fechaHoraLlegada >= '$miFechaHoraLlegada')
+				)");
 		if ($query->result()) {
       return false;
     }else {
@@ -43,7 +50,13 @@ class PublicarViajeM extends CI_model{
 		$email = $_SESSION['email'];
 		date_default_timezone_set('America/Argentina/La_Rioja');
 		$hace30Dias = date_sub(new DateTime(), date_interval_create_from_date_string('30 days'))->format('Y-m-d H:i:s');
-		$query = $this->db->query("SELECT * FROM viaje v INNER JOIN inscripcion i ON v.id = i.idViaje WHERE i.idUsuario = '$email' AND i.estado = 'pagada' AND v.fechaHoraLlegada <= '$hace30Dias' AND NOT EXISTS(SELECT * FROM calificacion c WHERE idViaje = v.id AND c.idCalificador = '$email')");
+		$query = $this->db->query(
+			"SELECT *
+			FROM viaje v INNER JOIN inscripcion i ON v.id = i.idViaje
+			WHERE i.idUsuario = '$email'
+				AND i.estado = 'pagada'
+				AND v.fechaHoraLlegada <= '$hace30Dias'
+				AND NOT EXISTS(SELECT * FROM calificacion c WHERE idViaje = v.id AND c.idCalificador = '$email')");
 		return $query->result();
 	}
 
