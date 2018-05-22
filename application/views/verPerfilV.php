@@ -8,6 +8,16 @@
         <br>
         <div class="container" style="width: 80%">
           <div class="row">
+            <table class="table table-striped table-dark" style="box-shadow: 0px 0px 10px 4px black">
+              <tbody>
+                <tr>
+                  <td align="left"><h2 style="font-style: italic; color: white"><?php echo $_SESSION['nombre']; echo " "; echo $_SESSION['apellido'];?></h2></td>
+                  <td align="right"><a href="<?php echo base_url() ?>index.php/editarPerfilC" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">Editar perfil</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
             <table class="table table-striped table-dark table-bordered" style="box-shadow: 0px 0px 10px 4px black">
               <tbody>
                 <tr>
@@ -27,7 +37,7 @@
                               } ?>
                             </div>
                             <div class="row justify-content-center">
-                             <label for="cargarImagen" class="btn btn-primary" style="background-color: #f37277; border-color:#f37277">Cambiar imagen</label>
+                             <label for="cargarImagen" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black;background-color: #f37277; border-color:#f37277">Cambiar imagen</label>
                             </div>
                           </form>
                         </div>
@@ -74,6 +84,7 @@
             </table>
           </div>
         </div>
+        <br>
       </div>
   </body>
   <?php require 'scripts.php' ?>
