@@ -9,14 +9,13 @@
     <div class="container" style="background: rgba(0,0,0,0.5); box-shadow: 0 0 10px 3px black; min-height: 100%;">
       <?php require 'barraSuperior.php' ?>
       <?php if($bool=='exito'){
-        echo '<div class="alert alert-success" align="center"> Perfil guardado correctamente </div>';
-      }else{
-        echo validation_errors('<div class="alert alert-danger" align="center">','</div>');
+        echo '<div class="alert alert-success" align="center"> Perfil guardado correctamente, sera redireccionado en 5 segundos </div>';
+        header( "refresh:5;url=".site_url('verPerfilC'));
       }?>
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="col col-md-10">
-            <form action="<?php echo base_url() ?>index.php/editarPerfilC/editar" method="POST">
+            <form action="<?php echo site_url('/editarPerfilC/editar') ?>" method="POST">
               <table class="table table-striped table-dark" style="box-shadow: 0px 0px 10px 4px black">
                 <tbody>
                   <tr>
@@ -41,11 +40,18 @@
                     <div class="form-group">
         							<th style="width: 50px"><label for="sexo"> Sexo </label></th>
         							<td style="padding-right: 80px"><select style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" class="form-control" placeholder="Sexo" value="<?php echo $_SESSION['sexo']; ?>" name="sexo">
-                        <option value"" selected><?php echo $_SESSION['sexo'];?></option>
-                        <?php if($_SESSION['sexo'] == 'Femenino'){
-                          echo "<option>Masculino</option>";
+                        <?php if($_SESSION['sexo'] == ''){
+                          echo '<option selected></option>';
+                          echo '<option>Masculino</option>';
+                          echo '<option>Femenino</option>';
+                        }elseif($_SESSION['sexo'] == 'Femenino'){
+                          echo '<option></option>';
+                          echo '<option>Masculino</option>';
+                          echo '<option selected>Femenino</option>';
                         }else{
-                          echo "<option>Femenino</option></select>";
+                          echo '<option></option>';
+                          echo '<option selected>Masculino</option>';
+                          echo '<option>Femenino</option>';
                         } ?>
                       </td>
       							</div>
@@ -71,7 +77,7 @@
                   <tr>
                     <div class="form-group">
         							<th style="width: 50px"><label for="celular"> Celular </label></th>
-        							<td style="padding-right: 80px"><input style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" type="text" class="form-control" placeholder="Celular" value="<?php echo $_SESSION['celular']; ?>" name="celular"></td>
+        							<td style="padding-right: 80px"><input style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" type="tel" class="form-control" placeholder="Celular" value="<?php echo $_SESSION['celular']; ?>" name="celular"></td>
       							</div>
                   </tr>
                   <tr>

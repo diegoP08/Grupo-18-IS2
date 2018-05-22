@@ -12,23 +12,19 @@ class EditarPerfilC extends CI_Controller{
   	$this->load->view('editarPerfilV', $datos);
   }
 
-  public function editar(){
-		if($this->form_validation->run()== TRUE){
-      $campos = array(
-        'nombre' => $this->input->POST('nombre'),
-        'apellido' => $this->input->POST('apellido'),
-        'fechaDeNacimiento' => $this->input->POST('fechaDeNacimiento'),
-        'sexo' => $this->input->POST('sexo'),
-        'pais' => $this->input->POST('pais'),
-        'provincia' => $this->input->POST('provincia'),
-        'localidad' => $this->input->POST('localidad'),
-        'celular' => $this->input->POST('celular')
-      );
-		  	if($this->editarPerfilM->editar($campos)){
-          $datos['bool'] = 'exito';
-  				$this->load->view('editarPerfilV',$datos);
-        }
-		}
+public function editar(){
+	if($this->editarPerfilM->editar()){
+		$_SESSION['nombre'] = $this->input->POST('nombre');
+		$_SESSION['apellido'] = $this->input->POST('apellido');
+		$_SESSION['fechaDeNacimiento'] = $this->input->POST('fechaDeNacimiento');
+		$_SESSION['sexo'] = $this->input->POST('sexo');
+		$_SESSION['pais'] = $this->input->POST('pais');
+		$_SESSION['provincia'] = $this->input->POST('provincia');
+		$_SESSION['localidad'] = $this->input->POST('localidad');
+		$_SESSION['celular'] = $this->input->POST('celular');
+	  $datos['bool'] = 'exito';
+		$this->load->view('editarPerfilV',$datos);
 	}
+}
 
 }

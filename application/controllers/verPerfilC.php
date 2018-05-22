@@ -36,7 +36,7 @@ class VerPerfilC extends CI_Controller {
 			// elimina y si la carga falla tira error la proxima vez (solucionar).
       $config['upload_path'] = './assets/img/';
 			$config['overwrite'] = FALSE;
-			$new_name = $_SESSION['id'] . "foto";
+			$new_name = "usuario" . $_SESSION['id'] . "repe0";
 			$config['file_name'] = $new_name;
       $config['allowed_types']        = 'jpg|png';
       $config['max_size']             = 100;
@@ -48,11 +48,11 @@ class VerPerfilC extends CI_Controller {
 				if ($_SESSION['fotoPerfil'] != "usuario.jpg") {
 					unlink('./assets/img/' . $_SESSION['fotoPerfil']);
 				}
+				$_SESSION['fotoPerfil'] = $this->upload->data('file_name');
         $data = array('upload_data' => $this->upload->data());
 				$nuevo = array('fotoPerfil' => $this->upload->data('file_name'));
 				$this->db->where('email', $_SESSION['email']);
 				$this->db->update('usuario', $nuevo);
-				$_SESSION['fotoPerfil'] = $this->upload->data('file_name');
 				redirect('/verPerfilC', 'refresh');
       }else {
 				$this->index("imagenIncorrecta");
