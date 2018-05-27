@@ -221,7 +221,7 @@ class PublicarViajeC extends CI_Controller {
           <br>
 					<div id="alerta"></div>
           <div class="row justify-content-center">
-            <button  style="background-color: #f37277; border-color:#f37277" class="btn btn-primary" onclick="comprobar()">Publicar Viaje</button>
+            <button  type="button" style="background-color: #f37277; border-color:#f37277" class="btn btn-primary" onclick="comprobar()">Publicar Viaje</button>
           </div>
           <br>';
 	}
