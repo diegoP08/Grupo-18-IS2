@@ -11,12 +11,16 @@ class BuscarViajeM extends CI_model{
 		$destino = $_POST['destino'];
 		$fechaSalida = $_POST['fechaSalida'];
 
+		date_default_timezone_set('America/Argentina/La_Rioja');
+		$tomorrow = (new DateTime())->add(new DateInterval('P1D'))->format('Y-m-d H:i:s');
+
 		if ($salida){
 			if ($fechaSalida){ //Busca por origen, destino y fecha
 				$query =  $this->db->query(
 		      "SELECT *
 		      FROM viaje
 		      WHERE estado = 'activa'
+								AND fechaHoraSalida > '$tomorrow'
 								AND salida = '$salida'
 								AND destino = '$destino'
 								AND fechaHoraSalida LIKE '$fechaSalida%'
@@ -27,6 +31,7 @@ class BuscarViajeM extends CI_model{
 		      "SELECT *
 		      FROM viaje
 		      WHERE estado = 'activa'
+								AND fechaHoraSalida > '$tomorrow'
 								AND salida = '$salida'
 								AND destino = '$destino'
 		      ORDER BY fechaHoraSalida asc");
@@ -37,6 +42,7 @@ class BuscarViajeM extends CI_model{
 				"SELECT *
 				FROM viaje
 				WHERE estado = 'activa'
+				AND fechaHoraSalida > '$tomorrow'
 				ORDER BY fechaHoraSalida asc");
 			return $query->num_rows();
 		}
@@ -48,12 +54,17 @@ class BuscarViajeM extends CI_model{
 		$destino = $_POST['destino'];
 		$fechaSalida = $_POST['fechaSalida'];
 		$inicio = ($pagina - 1) * 10;
+
+		date_default_timezone_set('America/Argentina/La_Rioja');
+		$tomorrow = (new DateTime())->add(new DateInterval('P1D'))->format('Y-m-d H:i:s');
+
 		if ($salida){
 			if ($fechaSalida){ //Busca por origen, destino y fecha
 				$query =  $this->db->query(
 		      "SELECT *
 		      FROM viaje
 		      WHERE estado = 'activa'
+								AND fechaHoraSalida > '$tomorrow'
 								AND salida = '$salida'
 								AND destino = '$destino'
 								AND fechaHoraSalida LIKE '$fechaSalida%'
@@ -65,6 +76,7 @@ class BuscarViajeM extends CI_model{
 		      "SELECT *
 		      FROM viaje
 		      WHERE estado = 'activa'
+								AND fechaHoraSalida > '$tomorrow'
 								AND salida = '$salida'
 								AND destino = '$destino'
 		      $ordenPorFecha $ordenPorMonto
@@ -76,6 +88,7 @@ class BuscarViajeM extends CI_model{
 				"SELECT *
 				FROM viaje
 				WHERE estado = 'activa'
+							AND fechaHoraSalida > '$tomorrow'
 				$ordenPorFecha $ordenPorMonto
 				LIMIT $inicio , 10");
 			return $query->result();
