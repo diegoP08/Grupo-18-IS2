@@ -32,8 +32,8 @@
                   <th scope="row">Hora de salida</th>
                   <td><?php echo date( "H:i", strtotime( $fechaSalida)).' hs'; ?></td>
                   <th scope="row">Duracion:</th>
-                  <td><?php  $duracion= (date( strtotime( $fechaLlegada))) - (date( strtotime( $fechaSalida)));
-                          echo date("H:i" ,$duracion); ?></td>
+                  <td><?php  $duracion= (new DateTime($fechaLlegada))->diff(new DateTime($fechaSalida));
+                          echo (($duracion->format("%a") * 24) + $duracion->format("%H")) . ":" . $duracion->format("%I"); ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Costo del viaje</th>

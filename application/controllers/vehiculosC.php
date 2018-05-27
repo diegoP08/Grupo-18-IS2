@@ -45,7 +45,7 @@ class VehiculosC extends CI_Controller {
 		if($this->form_validation->run()== TRUE){
 			$this->load->model('vehiculosM'); // Cargo el modelo.
 			if($this->vehiculosM->guardar()){ //Guardar del model toma los valores por $_POST[], es por eso que no creo un array
-				echo '<div class="alert alert-success"> Se añadio el vehiculo correctamente </div>';
+				echo 'exito';
 			}else{
 				echo '<div class="alert alert-danger"> La matricula del vehiculo ya esta registrada </div>';
 			}
@@ -58,7 +58,7 @@ class VehiculosC extends CI_Controller {
 		$this->load->model('vehiculosM');
 		$listaVehiculos = $this->vehiculosM->misVehiculos();
 		if (! $listaVehiculos){
-			echo '<div class="alert alert-primary">No tiene vehiculos cargados</div>';
+			echo '<div class="alert alert-primary" style="text-align: center">No tiene vehiculos cargados</div>';
 		}else{
 			foreach ($listaVehiculos as $vehiculo){
 				$id = $vehiculo->id;
@@ -79,12 +79,34 @@ class VehiculosC extends CI_Controller {
 				echo 			'</div>';
 				echo 			'<div class="col-1">';
 				echo 				'<button style="margin-bottom: 10px" type="button" class="btn btn-primary btn-sm" onclick="cargarFormularioModificacion(',$id,')">Modificar</button>';
-				echo 				'<button type="button" class="btn btn-danger btn-sm" onclick="eliminar(',$id,')">Eliminar</button>';
+				echo 				'<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#mensajeEliminar" onclick="modificarModal(',$id,')">
+								  		Eliminar
+								 		 </button>';
 				echo 			'</div>';
 				echo 		'</div>';
 				echo 	'<br>';
 				echo 	'</div>';
 			}
+				echo  '<!-- Modal -->
+							 <div class="modal fade" style="color: black" id="mensajeEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								 <div class="modal-dialog" role="document">
+									 <div class="modal-content">
+										 <div class="modal-header">
+											 <h5 class="modal-title" id="exampleModalLabel">Eliminar vehiculo</h5>
+											 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												 <span aria-hidden="true">&times;</span>
+											 </button>
+										 </div>
+										 <div class="modal-body">
+											 ¿Esta seguro de que desea eliminar este vehiculo?
+										 </div>
+										 <div class="modal-footer">
+											 <button type="button" class="btn btn-secondar" data-dismiss="modal">Cancelar</button>
+											 <button type="button" class="btn btn-danger" data-dismiss="modal" id="botonConfirmarEliminacion">Eliminar</button>
+										 </div>
+									 </div>
+								 </div>
+							 </div>';
 		}
 	}
 

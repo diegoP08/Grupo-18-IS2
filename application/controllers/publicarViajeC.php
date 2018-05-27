@@ -35,28 +35,94 @@ class PublicarViajeC extends CI_Controller {
 				echo '<div class="alert alert-danger">Ingrese una fecha y hora de salida con antelacion de 24 horas</div>';
 				return 0;
 			}
+			//Realizo la operacion para guardar el viaje en la Base de Datos
 			if($this->publicarViajeM->guardar()){ // datos a guardar estan en POST
 				echo 'exito';
 				return 0;
 			}else{
 				echo '<div class="alert alert-danger">El viaje se superpone con otros viajes</div>';
 			}
-		}else {
-			/*ATENCION: EN ESTE CASO ESTOY IGNORANDO SI HAY INTERPOSICIONES, ES DECIR, NO LAS GUARDO PERO TAMPOCO INFORMO AL USUARIO*/
-			date_default_timezone_set('America/Argentina/La_Rioja');
-			// fechaSalida sera para incrementar en dias, sumo 1 dia
-			$fechaSalida = date_add(new DateTime($_POST['fechaHoraSalida']), date_interval_create_from_date_string('1 days'));
 
-			if ($fechaSalida > date_add(new DateTime(), date_interval_create_from_date_string('1 days'))) {
-				$_POST['fechaHoraSalida'] = $fechaSalida->format('Y-m-d H:i:s'); // actualizo post
-				$this->publicarViajeM->guardar();
+		}else {
+			$exito = true;
+			date_default_timezone_set('America/Argentina/La_Rioja');
+			$fechasCargadas= array();
+			// fechaSalida sera para incrementar en dias, sumo 1 dia
+			$miFechaHoraSalida = (new DateTime($_POST['fechaHoraSalida']))->add(new DateInterval('P1D'));
+
+			//Comprueba que la primer publicacion exceda las 24 horas y que este disponible.
+			if ($miFechaHoraSalida > (new DateTime())->add(new DateInterval('P1D'))){
+				$_POST['fechaHoraSalida'] = $miFechaHoraSalida->format('Y-m-d H:i:s'); // actualizo post
+				if (! $this->publicarViajeM->fechaDisponible()){
+					$exito = false;
+					echo '<div class="alert alert-danger">El viaje con fecha ',$_POST['fechaHoraSalida'],' se superpone con otros viajes</div>';
+				}else{
+					$fechasCargadas[0] = new DateTime($_POST['fechaHoraSalida']);
+				}
 			}
-			for ($i=0; $i < 9; $i++) {
-				$fechaSalida = date_add($fechaSalida, date_interval_create_from_date_string('1 days')); // sumo 1 dia
-				$_POST['fechaHoraSalida'] = $fechaSalida->format('Y-m-d H:i:s'); // actualizo post
-				$this->publicarViajeM->guardar();
+
+			$minutos = $_POST['duracionHrs'] * 60 + $_POST['duracionMin'];
+			$minutos = $minutos . " minutes";
+			$minutos = date_interval_create_from_date_string($minutos);
+
+			//Evaluo disponibilidad de las siguientes 9 fechas.
+			for ($i=1; $i < 10; $i++) {
+				$miFechaHoraSalida->add(new DateInterval('P1D')); // sumo 1 dia
+				$_POST['fechaHoraSalida'] = $miFechaHoraSalida->format('Y-m-d H:i:s'); // actualizo post
+				//evaluo disponibilidad en la Base de Datos
+				if (! $this->publicarViajeM->fechaDisponible()){
+					$exito = false;
+					echo '<div class="alert alert-danger">El viaje con fecha ',$_POST['fechaHoraSalida'],' se superpone con otros viajes</div>';
+				}else{
+					//evaluo disponibilidad en las fechas a guardar.
+					$miFechaHoraLlegada = date_add(new DateTime($_POST['fechaHoraSalida']) , $minutos);
+					$fechaDisponible = true;
+					foreach ($fechasCargadas as $fechaHoraSalida) {
+						$fechaHoraLlegada = date_add(new DateTime($fechaHoraSalida->format('Y-m-d H:i:s')) , $minutos);
+						if ((($fechaHoraSalida >= $miFechaHoraSalida) && ($fechaHoraSalida <= $miFechaHoraLlegada))  ||
+								(($fechaHoraLlegada >= $miFechaHoraSalida) && ($fechaHoraSalida <= $miFechaHoraLlegada)) ||
+								(($fechaHoraSalida <= $miFechaHoraSalida) && ($fechaHoraLlegada >= $miFechaHoraLlegada))  ) {
+							$fechaDisponible = false;
+						}
+					}
+					if ($fechaDisponible){
+						$fechasCargadas[$i] = new DateTime($_POST['fechaHoraSalida']);
+					}else{
+						$exito = false;
+						echo '<div class="alert alert-danger">El viaje con fecha ',$_POST['fechaHoraSalida'],' se superpone con otros viajes</div>';
+					}
+				}
 			}
-			echo "exito";
+			if($exito){
+				echo "exito";
+			}else{
+				echo '<div id="mensajeDiaria"></div>
+							<div class="row justify-content-center">
+								<div>
+									<button class="btn btn-success" onclick="realizarPublicacionDiaria()">Publicar omitiendo superpuestas</button>
+									<a class="btn btn-danger" href="',site_url('publicarViajeC'),'">Cancelar</a>
+								</div>
+							</div>
+							<br>';
+			}
+		}
+	}
+
+	public function publicarDiaria(){
+		$this->load->model('publicarViajeM');
+		date_default_timezone_set('America/Argentina/La_Rioja');
+		// fechaSalida sera para incrementar en dias, sumo 1 dia
+		$miFechaHoraSalida = (new DateTime($_POST['fechaHoraSalida']))->add(new DateInterval('P1D'));
+
+		//Comprueba que la primer publicacion exceda las 24 horas y que este disponible.
+		if ($miFechaHoraSalida > (new DateTime())->add(new DateInterval('P1D'))){
+			$_POST['fechaHoraSalida'] = $miFechaHoraSalida->format('Y-m-d H:i:s'); // actualizo post
+			$this->publicarViajeM->guardar();
+		}
+		for ($i=1; $i < 10 ; $i++) {
+			$miFechaHoraSalida->add(new DateInterval('P1D')); // sumo 1 dia
+			$_POST['fechaHoraSalida'] = $miFechaHoraSalida->format('Y-m-d H:i:s'); // actualizo post
+			$this->publicarViajeM->guardar();
 		}
 	}
 

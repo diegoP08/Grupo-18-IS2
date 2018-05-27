@@ -5,7 +5,7 @@
   <body style="background-image: url(<?php echo base_url() ?>assets/img/fondo1.png); background-repeat:repeat;height: 100%;">
     <div class="container" style="background: rgba(0,0,0,0.5); box-shadow: 0 0 10px 3px black; min-height: 100%;">
       <?php require "barraSuperior.php" ?>
-      <div class="container clearfix">
+      <div class="container" id="cuerpo">
         <h3 align="center" style="color: white">Ingrese los datos de su publicación</h3>
         <br>
         <div class="col" style="padding-right: 100px; padding-left: 100px; color:white">
@@ -26,7 +26,7 @@
           </form>
         </div>
       </div>
-
+      <div class="container" id="alertaDiaria"></div>
       <script>
         var originAutocomplete
         var destinationAutocomplete
@@ -44,19 +44,21 @@
           destinationAutocomplete = new google.maps.places.Autocomplete(
               destinationInput, options);
         }
-        // Ejecuta la logica para realizar una publicacion
+        // Ejecuta la logica para realizar una publicacion Ocasional.
+        // Ejecuta la comprobacion de fechas de una publicacion Diaria.
         // Controla antes de llamar si ingresaron origen, destino, fecha, hora, duracionHrs y duracionMin para poder formatearlos.
         function comprobar(){
           var origen = originAutocomplete.getPlace();
           var destino = destinationAutocomplete.getPlace();
-          var fecha = $("#fecha").val();
+          var fecha = $('#fecha').val();
           var hora = $('#hora').val();
           var duracionHrs = $('#duracionHrs').val();
           var duracionMin = $('#duracionMin').val();
-          var tipo = $("#tipo").val();
+          var tipo = $('#tipo').val();
           var monto = $('#costo').val();
           var matricula = $('#matricula').val();
           var cupo = $('#cupo').val();
+
           if((! origen) || (! destino) || ((tipo == "ocasional") && (! fecha)) || (! hora) || (! duracionHrs) || (! duracionMin) || (! monto) || (! matricula) || (! cupo)){
             $("#alerta").html('<div class="alert alert-danger">Ingrese los campos obligatorios</div>');
           }else{
@@ -68,8 +70,10 @@
               var mes = (m < 10) ? '0' + m : m;
               fecha = f.getFullYear() + "-" + mes + "-" + f.getDate();
             }
+
             var fechaHoraSalida = fecha + " " + hora + ":00";
             var descripcion = $('#descripcion').val();
+
             $.ajax({
                 url: "publicarViajeC/publicar",
                 type: "POST",
@@ -77,11 +81,24 @@
                        cupo: cupo, matricula: matricula, monto: monto, descripcion: descripcion,
                        duracionHrs: duracionHrs,duracionMin: duracionMin, lugaresDisponibles: cupo, tipo: tipo},
                 success: function(respuesta){
-                  if (respuesta == 'exito') {
-                    $("#alerta").html('<div class="alert alert-success">Viaje publicado correctamente. Seras redirigido al inicio en 5 segundos</div>');
-                    window.setTimeout(function(){window.location.href = "http://localhost/unaventon/index.php/inicioC";}, 5000);
+                  if (tipo == 'ocasional'){ // Segun el tipo de publicacion, la forma en que se mustra la respuesta es distinta
+                    if (respuesta == 'exito') {
+                      $("#alerta").html('<div class="alert alert-success">Viaje publicado correctamente. Seras redirigido al inicio en 5 segundos</div>');
+                      window.setTimeout(function(){window.location.href = "http://localhost/unaventon/index.php/inicioC";}, 5000);
+                    }else{
+                      $("#alerta").html(respuesta);
+                    }
                   }else{
-                    $("#alerta").html(respuesta);
+                    if (respuesta == 'exito') {
+                      realizarPublicacionDiaria();
+                      $("#alerta").html('<div class="alert alert-success">Viaje publicado correctamente. Seras redirigido al inicio en 5 segundos</div>');
+                      window.setTimeout(function(){window.location.href = "http://localhost/unaventon/index.php/inicioC";}, 5000);
+                    }else if(respuesta.includes('se superpone con otros viajes')){
+                      $("#cuerpo").css({'display':'none'});
+                      $("#alertaDiaria").html(respuesta);
+                    }else{
+                      $('#alerta').html(respuesta);
+                    }
                   }
                 }
             });
@@ -89,6 +106,40 @@
         }
       </script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDZPHHY5uywExSQOzG0dEwv7ngg33WDEE&libraries=places" async defer></script>
+      <script>
+      //Ejecuta la logica para realizar una publicacion Diaria
+        function realizarPublicacionDiaria(){
+          var nombreOrigen = originAutocomplete.getPlace().formatted_address;
+          var nombreDestino = destinationAutocomplete.getPlace().formatted_address;
+          var hora = $('#hora').val();
+          var duracionHrs = $('#duracionHrs').val();
+          var duracionMin = $('#duracionMin').val();
+          var tipo = $('#tipo').val();
+          var monto = $('#costo').val();
+          var matricula = $('#matricula').val();
+          var cupo = $('#cupo').val();
+
+          var f = new Date();
+          var m = f.getMonth() + 1;
+          var mes = (m < 10) ? '0' + m : m;
+
+          var fecha = f.getFullYear() + "-" + mes + "-" + f.getDate();
+          var fechaHoraSalida = fecha + " " + hora + ":00";
+          var descripcion = $('#descripcion').val();
+
+          $.ajax({
+              url: "publicarViajeC/publicarDiaria",
+              type: "POST",
+              data: {fechaHoraSalida: fechaHoraSalida, salida: nombreOrigen, destino: nombreDestino,
+                     cupo: cupo, matricula: matricula, monto: monto, descripcion: descripcion,
+                     duracionHrs: duracionHrs,duracionMin: duracionMin, lugaresDisponibles: cupo, tipo: tipo},
+              success: function(){
+                $("#mensajeDiaria").html('<div class="alert alert-success">Viaje publicado correctamente. Seras redirigido al inicio en 5 segundos</div>');
+                window.setTimeout(function(){window.location.href = "http://localhost/unaventon/index.php/inicioC";}, 5000);
+              }
+          });
+        }
+      </script>
       <script>
       // carga la lista de matriculas en el selector del formulario
         function cargarMatriculas(){

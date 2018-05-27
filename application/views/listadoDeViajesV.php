@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" style="height: 100%">
   <?php require 'head.php' ?>
-  <body style="background-image: url(<?= base_url() ?>assets/img/fondo1.png); background-repeat:repeat;height: 100%;">
+  <body style="background-image: url(<?php echo base_url() ?>assets/img/fondo1.png); background-repeat:repeat;height: 100%;">
     <div class="container" style="background: rgba(0,0,0,0.5); box-shadow: 0 0 10px 3px black; min-height: 100%;">
       <?php require 'barraSuperior.php' ?>
-      <br>
-      <br>
-      <div class="row justify-content-center" style="color:white">
-        <div class="col justify-content-center">
-          <h1 align="center">BUSCAS UN VIAJE?</h1>
-          <h3 align="center">Encontrá Tu Lugar, Viaja De Forma Segura Y Económica</h3>
-        </div>
-      </div>
-      <br>
       <div class="row justify-content-center" style="color:white">
         <div class="col-8">
-          <div class="" id="alerta"></div>
+          <div id="alerta"></div>
           <form id="formularioBusqueda" method="post" action="return false" onsubmit="return false">
             <div class="form-row">
               <div class="col">
@@ -35,10 +26,30 @@
           </form>
         </div>
       </div>
+      <div class="container">
+        <div style="color: white">
+          <form id="formularioFiltros" class="form-inline" style="margin-top: 10px" action="return false" method="post">
+            <label for="porFecha">Ordenar por fecha salida: </label>
+            <select class="form-control form-control-sm" style="margin-left: 10px" id="porFecha">
+              <option <?= ($ordenPorFecha == 'Mayor') ? 'selected' : '' ; ?> >Mayor</option>
+              <option <?= ($ordenPorFecha == 'Menor') ? 'selected' : '' ; ?> >Menor</option>
+              <option <?= ($ordenPorFecha == 'Ninguna') ? 'selected' : '' ; ?> >Ninguna</option>
+            </select>
+            <label for="porCosto" style="margin-left: 10px">Ordenar por costo: </label>
+            <select class="form-control form-control-sm" style="margin-left: 10px" id="porCosto">
+              <option <?= ($ordenPorMonto == 'Mayor') ? 'selected' : '' ; ?> >Mayor</option>
+              <option <?= ($ordenPorMonto == 'Menor') ? 'selected' : '' ; ?> >Menor</option>
+              <option <?= ($ordenPorMonto == 'Ninguna') ? 'selected' : '' ; ?> >Ninguna</option>
+            </select>
+            <button onclick="filtrar()" type="button" class="btn btn-primary btn-sm" style="margin-left: 5px; background-color: #f37277; border-color:#f37277">Filtrar</button>
+          </form>
+        </div>
+      </div>
       <br>
-      <div class="container" style="color: white">
-        <h3 align="center">Viajes que podrian interesarte</h3>
-        <br>
+      <div class="container">
+        <?php if (count($viajes) == 0): ?>
+          <div class="alert alert-danger">No hay viajes disponibles</div>
+        <?php endif; ?>
         <?php foreach ($viajes as $viaje): ?>
           <div style="cursor:pointer" onclick="location.href='<?= site_url('/verViajeC/cargarViaje/') , $viaje->id; ?>'" >
             <table class="table table-striped table-dark table-bordered" style="box-shadow: 0px 0px 10px 4px black;">
@@ -68,8 +79,31 @@
             </table>
           </div>
         <?php endforeach; ?>
-        <br>
       </div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" onclick="cambiarPagina(<?= (($pagina > 1) ? ($pagina - 1) : 1) ?>)" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item active"><a class="page-link" onclick="cambiarPagina(<?= $pagina ?>)"><?= $pagina ?></a></li>
+              <li class="page-item <?= (($pagina + 1) > $maxPag) ? 'disabled' : '' ; ?>"><a class="page-link" onclick="cambiarPagina(<?= $pagina + 1 ?>)"><?= $pagina + 1 ?></a></li>
+              <li class="page-item <?= (($pagina + 2) > $maxPag) ? 'disabled' : '' ; ?>"><a class="page-link" onclick="cambiarPagina(<?= $pagina + 2 ?>)"><?= $pagina + 2 ?></a></li>
+              <li class="page-item">
+                <a class="page-link" onclick="cambiarPagina(<?= (($pagina < $maxPag) ? ($pagina + 1) : $pagina) ?>)" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <br>
     </div>
   </body>
   <?php require 'scripts.php' ?>
@@ -107,13 +141,40 @@
         }
         $("#origen").val(nombreOrigen);
         $("#destino").val(nombreDestino);
-        $("#formularioBusqueda").attr({'action':'./buscarViajeC/buscar/1'});
+        $("#formularioBusqueda").attr({'action':"<?= site_url('/buscarViajeC/buscar/1')  ?>"});
         document.getElementById("formularioBusqueda").submit();
       }
     }
   </script>
   <script>
-
+    //Ejecuta la logica para mostrar los resultados de la siguiente pagina
+    function cambiarPagina(pagina){
+      var fechaSalida = "<?= $fechaSalida  ?>";
+      var nombreOrigen = "<?= $origen  ?>";
+      var nombreDestino = "<?= $destino  ?>";
+      var ordenPorFecha = "<?= $ordenPorFecha  ?>";
+      var ordenPorMonto = "<?= $ordenPorMonto  ?>";
+      $("#origen").val(nombreOrigen);
+      $("#destino").val(nombreDestino);
+      $("#fechaSalida").val(fechaSalida);
+      $("#formularioBusqueda").attr({'action': "<?= site_url('/buscarViajeC/buscar/')?>" + pagina + "/" + ordenPorFecha + "/" + ordenPorMonto});
+      document.getElementById("formularioBusqueda").submit();
+    }
+  </script>
+  <script>
+  // Ejecuta la logica para filtrar los resultados de una busqueda
+    function filtrar(){
+      var fechaSalida = "<?= $fechaSalida  ?>";
+      var nombreOrigen = "<?= $origen  ?>";
+      var nombreDestino = "<?= $destino  ?>";
+      var ordenPorFecha = $('#porFecha').val();
+      var ordenPorMonto = $('#porCosto').val();
+      $("#origen").val(nombreOrigen);
+      $("#destino").val(nombreDestino);
+      $("#fechaSalida").val(fechaSalida);
+      $("#formularioBusqueda").attr({'action': "<?= site_url('/buscarViajeC/buscar/' . $pagina) . '/' ?>" + ordenPorFecha + "/" + ordenPorMonto});
+      document.getElementById("formularioBusqueda").submit();
+    }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDZPHHY5uywExSQOzG0dEwv7ngg33WDEE&libraries=places&callback=initMap" async defer></script>
 </html>

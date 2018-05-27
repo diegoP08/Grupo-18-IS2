@@ -6,6 +6,7 @@
     <div class="container" style="background: rgba(0,0,0,0.5); box-shadow: 0 0 10px 3px black; min-height: 100%;">
       <?php require 'barraSuperior.php' ?>
       <br>
+      <div class="container" id="mensaje"></div>
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12" style="color: white">
@@ -27,9 +28,9 @@
 
             <div class="tab-content" id="contenido">
 
-              <div style="overflow-y:scroll; border-width: 1px; border-style: solid;height: 530px" class="tab-pane fade show active" id="listaVehiculos" role="tabpanel" ></div>
+              <div style="overflow-y:scroll; border-width: 1px; border-style: solid;height: 530px" class="tab-pane active" id="listaVehiculos" role="tabpanel" ></div>
 
-              <div style="border-width: 1px; border-style: solid;" class="tab-pane fade" id="formulario" role="tabpanel" aria-labelledby="profile-tab"></div>
+              <div style="border-width: 1px; border-style: solid; height: 530px" class="tab-pane fade" id="formulario" role="tabpanel" aria-labelledby="profile-tab"></div>
               <br>
             </div>
           </div>
@@ -70,6 +71,21 @@
       //$(this).tab('show');
     })
   </script>
+  <script> //Muestra una alerta con el texto que recibe
+    function mostrarMensaje(mensaje){
+      $("#mensaje").html(mensaje);
+      $(document).ready(function() {
+          setTimeout(function() {
+              $("#mensaje").fadeIn(0);
+          },0001);
+      });
+      $(document).ready(function() {
+          setTimeout(function() {
+              $("#mensaje").fadeOut(1500);
+          },3000);
+      });
+    }
+  </script>
   <script> // Ejecuta la logica para añadir un vehiculo al usuario
     function anadirVehiculo(){
       var matricula = $("#matricula").val();
@@ -81,7 +97,13 @@
           type: "POST",
           data: {matricula: matricula, marca: marca, modelo: modelo, asientos: asientos},
           success: function(respuesta){
-            document.getElementById("alerta").innerHTML = respuesta;
+            if (respuesta == 'exito') {
+              $('#tab li:first-child a').tab('show');
+              recargarLista();
+              mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">El vehiculo se añadio correctamente</div>');
+            }else{
+              document.getElementById("alerta").innerHTML = respuesta;
+            }
           }
       });
     }
@@ -98,14 +120,20 @@
       });
     }
   </script>
+  <script> //modifica el boton del modal para eliminar el vehiculo correspondiente
+    function modificarModal(id){
+      document.getElementById("botonConfirmarEliminacion").onclick = function(){ eliminar(id) };
+    }
+  </script>
   <script> //Ejecuta la logica para eliminar un vehiculo al usuario
     function eliminar(id){
       $.ajax({
           url: "vehiculosC/eliminarVehiculo",
           type: "POST",
           data: {id: id},
-          success: function(respuesta){
-            recargarLista()
+          success: function(){
+            recargarLista();
+            mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">El vehiculo se elimino correctamente</div>');
           }
       });
     }
@@ -141,11 +169,13 @@
               document.getElementById("modificarVehiculo").style.display = 'none';
               document.getElementById("listaVehiculos").style.overflowY = "scroll";
               recargarLista();
+              mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">El vehiculo se modifico correctamente</div>');
             }else{
               document.getElementById("alertaM").innerHTML = respuesta;
             }
           }
       });
+
     }
   </script>
   <script> //Carga la lista de vehiculos cuando se carga la pagina
