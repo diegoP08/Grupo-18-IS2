@@ -26,12 +26,12 @@ class VerViajeM extends CI_model{
 			"SELECT *
 			FROM usuario
 			WHERE usuario.email = ('$idCreador')");
-		return $query->result()[0];	
+		return $query->result()[0];
 	}
-	public function seRegistro($idViaje, $email)
+	public function tieneIscripcion($idViaje, $email)
 	{
 		$query = $this->db->query(
-			"SELECT * 
+			"SELECT *
 			FROM inscripcion
 			WHERE inscripcion.idViaje = $idViaje AND inscripcion.idUsuario = '$email' AND inscripcion.estado != 'cancelada'");
 			return $query->result();

@@ -12,7 +12,6 @@ class VerViajeC extends CI_controller {
 		$datosViaje = ($this->verViajeM->datosViaje($idViaje));
 		$comentarios = ($this->verViajeM->comentariosDelViaje($idViaje));
 		$datosConductor = ($this->verViajeM->datosDelConductor( $datosViaje->idCreador));
-		$datosRegistro = ($this->verViajeM->seRegistro($idViaje,$_SESSION['email']));
 
 		$viaje = array(
 			'creador' => $datosViaje->idCreador,
@@ -30,13 +29,13 @@ class VerViajeC extends CI_controller {
 			'lugaresDisponibles' => $datosViaje->lugaresDisponibles,
 			'comentarios' => $comentarios,
 			'nombreConductor' => $datosConductor->nombre,
-			'apellidoConductor' => $datosConductor->apellido
+			'apellidoConductor' => $datosConductor->apellido,
+			'tieneInscripcion' => false
 		);
-		if($this->verViajeM->seRegistro($idViaje,$_SESSION['email'])){
-			$viaje = array('yaRegistrado' => $datosRegistro->idUsuario);
-		}else{
-			$fallo="fallos";
-			$viaje = array('yaRegistrado' => $fallo);
+		if (isset($_SESSION['email'])) {
+			if($this->verViajeM->tieneIscripcion($idViaje,$_SESSION['email'])){
+				$viaje['tieneInscripcion'] = true;
+			}
 		}
 
 		$this->load->view("verViajeV",$viaje);

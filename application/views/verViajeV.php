@@ -13,15 +13,15 @@
                   <th scope="row" style="width: 200px; height: 5px">Conductor</th>
                   <td colspan="5"><?php echo $nombreConductor . ' ' . $apellidoConductor ?></td>
                   <td colspan="2">
-                    <?php if(isset($_SESSION['email'])){ 
-                       if((($_SESSION['email']) != $creador)||($yaRegistrado  != $_SESSION['email'])){ ?>
+              <?php if(isset($_SESSION['email'])){
+                      if((($_SESSION['email']) != $creador)||($tieneInscripcion)){ ?>
                         <button class="btn btn-primary" href="mandarSolicitud" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
-                  <?php }else{ ?>
-                      <button class="btn btn-primary disabled" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
-                   <?php } 
+                <?php }else{ ?>
+                        <button class="btn btn-primary disabled" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
+                <?php }
                     }else{ ?>
                       <button class="btn btn-primary disabled" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
-                   <?php } ?>
+              <?php } ?>
                   </td>
                 </tr>
                 <tr>
@@ -69,9 +69,9 @@
               <h3>Comentarios</h3>
               <div class="card card-info" style="background-color: #f37277">
                 <div class="card-block" style="padding: 20px;">
-                  <textarea placeholder="Deja tu comentario aqui" style="resize: none; padding: 5px; height: 130px; width: 100%; border: 1px solid  #f37277;"></textarea>
+                  <textarea <?= (isset($_SESSION['email'])) ? '' : 'disabled' ; ?> placeholder="Deja tu comentario aqui" style="resize: none; padding: 5px; height: 130px; width: 100%; border: 1px solid  #f37277;"></textarea>
                   <form class="form-inline float-right">
-                    <button style="" class="btn btn-outline-light" type="button">Comentar</button>
+                    <button <?= (isset($_SESSION['email'])) ? '' : 'disabled' ; ?> style="margin-top: 2px" class="btn btn-outline-light" type="button">Comentar</button>
                   </form>
                 </div>
               </div>
