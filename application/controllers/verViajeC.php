@@ -10,6 +10,9 @@ class VerViajeC extends CI_controller {
 	public function cargarViaje($idViaje) {
 		$this->load->model('verViajeM');
 		$datosViaje = ($this->verViajeM->datosViaje($idViaje));
+		$comentarios = ($this->verViajeM->comentariosDelViaje($idViaje));
+		$datosConductor = ($this->verViajeM->datosDelConductor( $datosViaje->idCreador));
+		$datosRegistro = ($this->verViajeM->seRegistro($idViaje,$_SESSION['email']));
 
 		$viaje = array(
 			'creador' => $datosViaje->idCreador,
@@ -24,8 +27,18 @@ class VerViajeC extends CI_controller {
 			'monto' => $datosViaje->monto,
 			'descripcion' => $datosViaje->descripcion,
 			'estado' => $datosViaje->estado,
-			'lugaresDisponibles' => $datosViaje->lugaresDisponibles
+			'lugaresDisponibles' => $datosViaje->lugaresDisponibles,
+			'comentarios' => $comentarios,
+			'nombreConductor' => $datosConductor->nombre,
+			'apellidoConductor' => $datosConductor->apellido
 		);
+		if($this->verViajeM->seRegistro($idViaje,$_SESSION['email'])){
+			$viaje = array('yaRegistrado' => $datosRegistro->idUsuario);
+		}else{
+			$fallo="fallos";
+			$viaje = array('yaRegistrado' => $fallo);
+		}
+
 		$this->load->view("verViajeV",$viaje);
 	}
 }

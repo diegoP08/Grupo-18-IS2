@@ -26,7 +26,7 @@ class Cregistro extends CI_Controller
 				 return false;
 			}
 		}
-		$datos['bool'] = 'fracaso';
+		$datos['bool'] = 'fracaso';	
 		$this->load->view('Vregistro',$datos);
 	}
 }

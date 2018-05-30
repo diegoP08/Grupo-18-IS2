@@ -26,11 +26,11 @@
 							</div>
 							<div class="form-group">
 								<label for="nombre">Nombre</label>
-								<input type="text" class="form-control" placeholder="Nombre" name="nombre" required>
+								<input type="text" class="form-control" placeholder="Nombre" oninput="this.value=Letras(this.value)" + name="nombre" required>
 							</div>
 							<div class="form-group">
 								<label for="apellido">Apellido</label>
-								<input type="text" class="form-control" placeholder="Apellido" name="apellido" required>
+								<input type="text" class="form-control" placeholder="Apellido" oninput="this.value=Letras(this.value)" name="apellido" required>
 							</div>
 							<div class="form-group">
 								<label for="contrasena">Contraseña</label>
@@ -50,5 +50,18 @@
 			</div>
 		</div>
 		<?php require "scripts.php" ?>
+		<script>
+			function Letras(string){//Solo numeros
+   				var out = '';
+		    	var filtro ='abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ ';//Caracteres validos
+			    for (var i=0; i<string.length; i++)//Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
+			       if (filtro.indexOf(string.charAt(i)) != -1) {
+				     out += string.charAt(i);//Se añaden a la salida los caracteres validos
+			    	}else{
+			      alert('El campo actual no acepta caracteres numericos');
+			  		}
+			    return out;//Retornar valor filtrado
+			} 
+		</script>
 	</body>
 </html>
