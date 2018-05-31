@@ -33,7 +33,7 @@ class VerViajeM extends CI_model{
 		$query = $this->db->query(
 			"SELECT *
 			FROM inscripcion
-			WHERE inscripcion.idViaje = $idViaje AND inscripcion.idUsuario = '$email' AND inscripcion.estado != 'cancelada'");
+			WHERE inscripcion.idViaje = $idViaje AND inscripcion.idUsuario = '$email' AND inscripcion.estado <> 'cancelada'");
 			return $query->result();
 	}
 

@@ -28,7 +28,7 @@ class VehiculosC extends CI_Controller {
 									<input type="number" min="1" class="form-control" id="asientos">
 								</div>
 								<div class="row justify-content-center">
-									<button type="submit" class="btn btn-primary" onclick="anadirVehiculo()">Añadir Vehiculo</button>
+									<button type="submit" class="btn btn-primary" style="background-color: #f37277; border-color:#f37277" onclick="anadirVehiculo()">Añadir Vehiculo</button>
 								</div>
 								<br>
 							</form>
@@ -42,7 +42,7 @@ class VehiculosC extends CI_Controller {
 		$this->form_validation->set_rules('marca', 'Marca','required');
 		$this->form_validation->set_rules('asientos', 'Asientos','required');
 
-		if($this->form_validation->run()== TRUE){
+		if(($this->form_validation->run()== TRUE) && ($_POST['asientos'] > 0)){
 			$this->load->model('vehiculosM'); // Cargo el modelo.
 			if($this->vehiculosM->guardar()){ //Guardar del model toma los valores por $_POST[], es por eso que no creo un array
 				echo 'exito';

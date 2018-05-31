@@ -32,7 +32,7 @@ class PublicarViajeC extends CI_Controller {
 			date_default_timezone_set('America/Argentina/La_Rioja');
 			// controlo que fecha no sea menor a la de mañana (24horas), si es ocasional
 			if (new DateTime($_POST['fechaHoraSalida']) < date_add(new DateTime(), date_interval_create_from_date_string('1 days'))) {
-				echo '<div class="alert alert-danger">Ingrese una fecha y hora de salida con antelacion de 24 horas</div>';
+				echo '<div class="alert alert-danger">Ingrese una fecha y hora de salida con mas de 24 horas que la fecha actual</div>';
 				return 0;
 			}
 			//Realizo la operacion para guardar el viaje en la Base de Datos
