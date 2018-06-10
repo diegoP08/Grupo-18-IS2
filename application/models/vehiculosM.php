@@ -70,8 +70,15 @@ class VehiculosM extends CI_model{
 		$this->db->select('matricula')->from('vehiculo')->where(array('id' => $_POST['id']));
 		$query = $this->db->get();
 		$matricula = $query->row()->matricula;
-		$this->db->select('*')->from('viaje')->where(array('matricula' => $matricula));
-		$query = $this->db->get();
+
+		date_default_timezone_set('America/Argentina/La_Rioja');
+		$hoy = (new DateTime())->format('Y-m-d H:i:s');
+
+		$query = $this->db->query(
+			"SELECT *
+			FROM viaje
+			WHERE fechaHoraLlegada > '$hoy'
+						AND matricula = '$matricula'");
 		return $query->result();
 	}
 
