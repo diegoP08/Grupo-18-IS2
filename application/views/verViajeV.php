@@ -67,11 +67,12 @@
           <div class="row justify-content-center">
             <div class="col-9">
               <h3>Comentarios</h3>
+              <div class="container" id="mensaje"></div>
               <div class="card card-info" style="background-color: #f37277">
                 <div class="card-block" style="padding: 20px;">
-                  <textarea <?= (isset($_SESSION['email'])) ? '' : 'disabled' ; ?> placeholder="Deja tu comentario aqui" style="resize: none; padding: 5px; height: 130px; width: 100%; border: 1px solid  #f37277;"></textarea>
+                  <textarea id="comentario" <?= (isset($_SESSION['email'])) ? '' : 'disabled' ; ?> placeholder="Deja tu comentario aqui" style="resize: none; padding: 5px; height: 130px; width: 100%; border: 1px solid  #f37277;"></textarea>
                   <form class="form-inline float-right">
-                    <button <?= (isset($_SESSION['email'])) ? '' : 'disabled' ; ?> style="margin-top: 2px" class="btn btn-outline-light" type="button">Comentar</button>
+                    <button <?= (isset($_SESSION['email'])) ? 'onclick="guardarComentario()"' : 'disabled' ; ?> style="margin-top: 2px" class="btn btn-outline-light" type="button">Comentar</button>
                   </form>
                 </div>
               </div>
@@ -79,7 +80,7 @@
           </div>
         </div>
         <br>
-        <div class="container">
+        <div class="container" id="listaDeComentarios">
           <?php foreach ($comentarios as $comentario): ?>
             <div class="row justify-content-center">
               <div class="col-9">
@@ -90,7 +91,7 @@
                   <div class="comment-content col-md-11 col-sm-10">
                     <?php if (isset($_SESSION['email']) &&
                               (($comentario->idCreador == $_SESSION['email']) || ($creador == $_SESSION['email']))): ?>
-                      <button type="button" class="close">
+                      <button type="button" class="close" data-toggle="modal" data-target="#mensajeEliminar" onclick="modificarModal(<?= $comentario->idComentario ?>)">
                         &times;
                       </button>
                     <?php endif; ?>
@@ -109,8 +110,91 @@
             </div>
           <?php endforeach; ?>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" style="color: black" id="mensajeEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+        	 <div class="modal-content">
+        		 <div class="modal-header">
+        			 <h5 class="modal-title" id="exampleModalLabel">Eliminar comentaio</h5>
+        			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        				 <span aria-hidden="true">&times;</span>
+        			 </button>
+        		 </div>
+        		 <div class="modal-body">
+        			 ¿Esta seguro de que desea eliminar este comentario?
+        		 </div>
+        		 <div class="modal-footer">
+        			 <button type="button" class="btn btn-secondar" data-dismiss="modal">Cancelar</button>
+        			 <button type="button" class="btn btn-danger" data-dismiss="modal" id="botonConfirmarEliminacion">Eliminar</button>
+        		 </div>
+        	 </div>
+         </div>
+        </div>
         <br>
       </div>
   </body>
+  <script> //modifica el boton del modal para eliminar el comentario correspondiente
+    function modificarModal(id){
+      document.getElementById("botonConfirmarEliminacion").onclick = function(){ eliminarComentario(id) };
+    }
+  </script>
+  <script> //Ejecuta la logica para eliminar un comentario de la publicacion
+    function eliminarComentario(id){
+      $.ajax({
+          url: "<?= site_url('verViajeC/eliminarComentario') ?>",
+          type: "POST",
+          data: {idComentario: id},
+          success: function(){
+            recargarComentarios();
+            mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">El comentario se elimino correctamente</div>');
+          }
+      });
+    }
+  </script>
+  <script> //Muestra una alerta con el texto que recibe
+    function mostrarMensaje(mensaje){
+      $("#mensaje").html(mensaje);
+      $(document).ready(function() {
+          setTimeout(function() {
+              $("#mensaje").fadeIn(0);
+          },0001);
+      });
+      $(document).ready(function() {
+          setTimeout(function() {
+              $("#mensaje").fadeOut(1500);
+          },3000);
+      });
+    }
+  </script>
+  <script> // Recarga los comentarios
+    function recargarComentarios(){
+      $.ajax({
+          url: "<?= site_url('verViajeC/listaDeComentarios') ?>",
+          type: "POST",
+          data: {idViaje: <?= $idViaje ?> , creador: "<?= $creador ?>"},
+          success: function(respuesta){
+            document.getElementById("listaDeComentarios").innerHTML = respuesta;
+          }
+      });
+    }
+  </script>
+  <script> // Guarda el comentario realizado por el usuario. Recarga la lista.
+    function guardarComentario(){
+      var texto = $("#comentario").val();
+      if (! texto) {
+        $("#mensaje").html('<div class="alert alert-danger" style="text-align: center"> Ingrese un texto </div>');
+      }else{
+        $.ajax({
+            url: '<?= site_url('verViajeC/guardarComentario') ?>',
+            type: "POST",
+            data: {idViaje: <?= $idViaje ?> , texto: texto},
+            success: function(respuesta){
+              recargarComentarios();
+              mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">Comentario realizado correctamente</div>');
+            }
+        });
+      }
+    }
+  </script>
   <?php require 'scripts.php' ?>
 </html>
