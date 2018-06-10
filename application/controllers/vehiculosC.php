@@ -112,6 +112,10 @@ class VehiculosC extends CI_Controller {
 
 	public function eliminarVehiculo(){ // eliminar el vehiculo, en POST esta el id
 		$this->load->model('vehiculosM');
+		if ($this->vehiculosM->tieneViajesActivos()){
+			echo "tieneViajesActivos";
+			return 0;
+		}
 		$this->vehiculosM->eliminarVehiculo();
 	}
 

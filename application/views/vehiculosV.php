@@ -131,9 +131,13 @@
           url: "vehiculosC/eliminarVehiculo",
           type: "POST",
           data: {id: id},
-          success: function(){
-            recargarLista();
-            mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">El vehiculo se elimino correctamente</div>');
+          success: function(respuesta){
+            if(respuesta == 'tieneViajesActivos'){
+              mostrarMensaje('<div class="alert alert-danger fixed-top" style="text-align: center">El vehiculo posee viajes activos</div>');
+            }else{
+              recargarLista();
+              mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">El vehiculo se elimino correctamente</div>');
+            }
           }
       });
     }

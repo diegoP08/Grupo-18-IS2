@@ -66,6 +66,15 @@ class VehiculosM extends CI_model{
 		return $query->result();
 	}
 
+	public function tieneViajesActivos(){
+		$this->db->select('matricula')->from('vehiculo')->where(array('id' => $_POST['id']));
+		$query = $this->db->get();
+		$matricula = $query->row()->matricula;
+		$this->db->select('*')->from('viaje')->where(array('matricula' => $matricula));
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function obtenerAsientosVehiculo(){ // En POST esta la matricula
 		$matricula = $this->input->post('matricula');
 		$this->db->select('asientos')->from('vehiculo')->where(array('matricula' => $matricula));
