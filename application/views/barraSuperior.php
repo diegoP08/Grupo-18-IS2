@@ -22,6 +22,7 @@ if (isset($_SESSION['email'])){
             <a class="dropdown-item" href="<?=site_url('/misViajesC')?>">Viajes</a>
             <a class="dropdown-item" href="#">Pagos</a>
             <a class="dropdown-item" href="<?=site_url('/vehiculosC')?>">Vehiculos</a>
+            <a class="dropdown-item" href="<?=site_url('/peticionesC')?>">Peticiones</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="<?=site_url('/ingresoC/cerrarSesion')?>">Cerrar Sesion</a>
           </div>
