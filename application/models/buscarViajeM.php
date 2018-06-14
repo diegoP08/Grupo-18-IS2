@@ -5,7 +5,7 @@ class BuscarViajeM extends CI_model{
 		parent:: __construct();
 	}
 
-	//Devulve la cantidad de viajes a mostrar
+	//Devuelve la cantidad de viajes a mostrar
 	public function contarViajes(){
 		$salida = $_POST['origen'];
 		$destino = $_POST['destino'];
@@ -101,7 +101,7 @@ class BuscarViajeM extends CI_model{
     $query =  $this->db->query(
       "SELECT *
       FROM viaje
-      WHERE fechaHoraSalida > '$tomorrow'
+      WHERE estado = 'activa' AND fechaHoraSalida > '$tomorrow'
       ORDER BY id desc
       LIMIT 10");
     return $query->result();
@@ -113,7 +113,7 @@ class BuscarViajeM extends CI_model{
     $query =  $this->db->query(
       "SELECT *
       FROM viaje
-      WHERE fechaHoraSalida > '$tomorrow'
+      WHERE estado = 'activa' AND fechaHoraSalida > '$tomorrow'
       ORDER BY RAND()
       LIMIT 5");
     return $query->result();

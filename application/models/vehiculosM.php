@@ -77,7 +77,8 @@ class VehiculosM extends CI_model{
 		$query = $this->db->query(
 			"SELECT *
 			FROM viaje
-			WHERE fechaHoraLlegada > '$hoy'
+			WHERE estado = 'activa'
+						AND fechaHoraLlegada > '$hoy'
 						AND matricula = '$matricula'");
 		return $query->result();
 	}

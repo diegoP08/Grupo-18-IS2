@@ -15,7 +15,8 @@ class misViajesM extends CI_model{
     $query = $this->db->query(
       "SELECT *
       FROM viaje
-      WHERE idCreador = '$idCreador'
+      WHERE estado = 'activa'
+						AND idCreador = '$idCreador'
             AND fechaHoraLlegada > '$hoy'");
     return $query->result();
   }
@@ -29,7 +30,8 @@ class misViajesM extends CI_model{
     $query = $this->db->query(
       "SELECT *
       FROM viaje
-      WHERE idCreador = '$idCreador'
+      WHERE estado = 'activa'
+						AND idCreador = '$idCreador'
             AND fechaHoraLlegada < '$hoy'");
     return $query->result();
   }
@@ -62,5 +64,48 @@ class misViajesM extends CI_model{
     return $query->result();
   }
 
+	public function cancelarSolicitud(){
+		$idInscripcion = $_POST['idInscripcion'];
+		$this->db->where('id', $idInscripcion)->update('inscripcion', array('estado' => 'cancelada'));
+	}
 
+	public function cancelarParticipacion(){
+		$idInscripcion = $_POST['idInscripcion'];
+		$this->db->where('id', $idInscripcion)->update('inscripcion', array('estado' => 'cancelada'));
+
+		$datos = array(
+        'idCalificado' => $_SESSION['email'],
+		);
+		$this->db->insert('calificacionsistema', $datos);
+	}
+
+	public function copilotosDeViaje($idViaje){
+		return $this->db->query("SELECT * FROM inscripcion WHERE idViaje = $idViaje AND (estado = 'aceptada' OR estado = 'pagada') ")->num_rows();
+	}
+
+	public function inscripcionesPendientesDeViaje($idViaje){
+		return $this->db->query("SELECT * FROM inscripcion WHERE idViaje = $idViaje AND estado = 'pendiente' ")->num_rows();
+	}
+
+	public function copilotosViaje(){
+		$idViaje = $_POST['idViaje'];
+		return $this->db->query(
+			"SELECT * , u.id as idUsr
+			FROM usuario u INNER JOIN inscripcion i ON u.email = i.idUsuario
+			WHERE idViaje = $idViaje
+						AND (estado = 'pagada' OR estado = 'aceptada') "
+		)->result();
+	}
+
+	public function eliminarCopiloto(){
+		$idInscripcion = $_POST['idInscripcion'];
+		$this->db->where('id', $idInscripcion)->update('inscripcion', array('estado' => 'rechazada'));
+
+		$datos = array(
+        'idCalificado' => $_SESSION['email'],
+		);
+		$this->db->insert('calificacionsistema', $datos);
+
+		return $this->db->select('idViaje')->from('inscripcion')->where('id',$idInscripcion)->get()->row()->idViaje;
+	}
 }
