@@ -36,7 +36,9 @@ class PeticionesC extends CI_Controller {
 			 echo							'</tr>';
 			 echo							'<tr>';
 			 echo								'<th><img class="mx-auto rounded-circle img-fluid" src="' . base_url() . 'assets/img/' . $imagenCalendario . '" style="height: 15px; margin-bottom: 4px; margin-right: 4px">Fecha de Salida</th>';
-			 echo								'<td colspan=3>',$horaSalida,'</td>';
+			 echo								'<td colspan=1>',date( "d-m-Y", strtotime($horaSalida)),'</td>';
+			 echo               '<th>Hora de salida</th>';
+			 echo               '<td colspan=1>',date( "H:i", strtotime($horaSalida)),' ','hs','</td>';
 			 echo							'</tr>';
 			 echo							'<tr>';
 			 echo							  '<th><img class="mx-auto rounded-circle img-fluid" src="' . base_url() . 'assets/img/' . $imagenPersona . '" style="height: 15px; margin-bottom: 4px">Petición de</th>';
