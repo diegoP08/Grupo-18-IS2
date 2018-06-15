@@ -8,10 +8,10 @@ class PeticionesC extends CI_Controller {
 	public function mostrarPeticiones(){
 		$this->load->model('peticionesM');
 		$peticiones= $this->peticionesM->peticiones();
-		$imagenSalida= 'locationSalida';
-		$imagenLlegada= 'locationLlegada';
-		$imagenPersona= 'persona';
-		$imagenCalendario= 'calendarioFecha';
+		$imagenSalida= 'locationSalida.png';
+		$imagenLlegada= 'locationLlegada.png';
+		$imagenPersona= 'persona.png';
+		$imagenCalendario= 'calendarioFecha.png';
 		if (! $peticiones){
 			echo '<div class="alert alert-primary" style="text-align: center">No tiene peticiones pendientes</div>';
 		}else{
