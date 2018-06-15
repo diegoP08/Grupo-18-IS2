@@ -1,3 +1,4 @@
+<?php if (! isset($_SESSION['email'])){redirect("start");} ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr" style="height:100%">
   <?php require "head.php" ?>

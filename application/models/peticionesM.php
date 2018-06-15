@@ -15,4 +15,19 @@ class PeticionesM extends CI_model{
                   AND v.idCreador = '$email'");
 		return $query->result();
   }
+
+	public function verReputacion($idCopiloto){
+    $this->db->select_sum('puntuacion')->from('calificacion')->where('idCalificado' , $idCopiloto);
+    $calificacionesDeUsuarios = $this->db->get()->result()[0]->puntuacion;
+
+		$this->db->select_sum('puntuacion')->from('calificacionsistema')->where('idCalificado' , $idCopiloto);
+		$calificacionesDelSistema = $this->db->get()->result()[0]->puntuacion;
+
+		$resultado= $calificacionesDeUsuarios + $calificacionesDelSistema;
+		if($resultado< 0){
+			$resultado=0;
+		}
+		return $resultado;
+  }
+
 }
