@@ -11,21 +11,14 @@
       <div class="container" style="background: rgba(0,26,26,0.5);width: 90%;box-shadow: 0px 0px 10px 4px black;">
         <h1 align='center' style="color:white; padding: 10px;">Peticiones pendientes</h1>
         <div class="container" align="center" id="listaPeticiones" style="overflow-y: auto; padding: 6px;">
-          <?php if($bool=='exito'){
-                    echo '<div class="alert alert-success" align="center"> Peticion aceptada, sera redireccionado en 5 segundos </div>';
-                    header( "refresh:4;url=".site_url('peticionesC'));
-                }else{
-                    if($bool=='falso'){
-                      echo '<div class="alert alert-danger" align="center"> Cupo del viaje completo, sera redireccionado en 5 segundos </div>';
-                      header( "refresh:4;url=".site_url('peticionesC'));
-                    }
-          }?>
         </div>
       </div>
     </div>
+    <div id="mensaje"></div>
   </body>
   <?php require 'scripts.php' ?>
   <script>
+    function listaPeticiones(){
       $.ajax({
           url: "peticionesC/mostrarPeticiones",
           type: "POST",
@@ -34,5 +27,42 @@
             document.getElementById("listaPeticiones").innerHTML = respuesta;
           }
       });
+    }
+  </script>
+  <script>
+    function aceptarPeticion(idInscripcion, idViaje){
+      $.ajax({
+          url: "peticionesC/aceptarPeticion",
+          type: "POST",
+          data: {idInscripcion : idInscripcion, idViaje : idViaje},
+          success: function(respuesta){
+            if (respuesta == 'exito'){
+              mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">Solicitud aceptada correctamente</div>');
+              listaPeticiones();
+            }else{
+              mostrarMensaje('<div class="alert alert-danger fixed-top" style="text-align: center">No hay lugares disponibles</div>');
+            }
+          }
+      });
+    }
+  </script>
+
+  <script> //Muestra una alerta con el texto que recibe
+    function mostrarMensaje(mensaje){
+      $("#mensaje").html(mensaje);
+      $(document).ready(function() {
+          setTimeout(function() {
+              $("#mensaje").fadeIn(0);
+          },0001);
+      });
+      $(document).ready(function() {
+          setTimeout(function() {
+              $("#mensaje").fadeOut(1500);
+          },3000);
+      });
+    }
+  </script>
+  <script>
+    window.onload = listaPeticiones;
   </script>
 </html>

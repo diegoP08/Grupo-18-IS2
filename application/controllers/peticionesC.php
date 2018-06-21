@@ -2,8 +2,7 @@
 class PeticionesC extends CI_Controller {
 
 	public function index(){
-		$datos['bool']= ' ';
-		$this->load->view('peticionesV',$datos);
+		$this->load->view('peticionesV');
 		}
 
 	public function mostrarPeticiones(){
@@ -52,7 +51,7 @@ class PeticionesC extends CI_Controller {
 			 echo							'<tr>';
 			 echo								'<td colspan=4>
 			 												<div class="row justify-content-center">
-			  											 <button class="btn btn-primary" style="background-color: #f37277; border-color:#f37277; margin-right: 4px" onclick="location.href=\'', site_url('/peticionesC/aceptarPeticion/'), $peticion->idViaje, '/' , $peticion->id ,'\' ">Aceptar</button>
+			  											 <button class="btn btn-primary" style="background-color: #f37277; border-color:#f37277; margin-right: 4px" onclick="aceptarPeticion(', $peticion->id, ',' , $peticion->idViaje ,') ">Aceptar</button>
 															 <button class="btn btn-primary" style="background-color: #DC143C; border-color:#f37277; margin-left: 4px" onclick="">Rechazar</button>
 															</div>
 													</td>';
@@ -64,15 +63,12 @@ class PeticionesC extends CI_Controller {
 		}
 	}
 
-	public function aceptarPeticion($idViaje, $idInscripcion){
+	public function aceptarPeticion(){ // en POST estan el idInscripcion y idViaje
 		$this->load->model('peticionesM');
-		$this->peticionesM->aceptarPeticion($idViaje,$idInscripcion);
-		if($this->peticionesM->aceptarPeticion($idViaje,$idInscripcion) == FALSE){
-			$datos['bool'] = 'falso';
-			$this->load->view('peticionesV',$datos);
+		if($this->peticionesM->aceptarPeticion()){
+			echo 'exito';
 		}else{
-			$datos['bool'] = 'exito';
-			$this->load->view('peticionesV',$datos);
+			echo 'falso';
 		}
 	}
 }

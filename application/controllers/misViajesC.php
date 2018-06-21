@@ -107,6 +107,7 @@ class MisViajesC extends CI_controller {
   }
 
   public function viajesComoAcompananteActivos(){
+		date_default_timezone_set('America/Argentina/La_Rioja');
     $this->load->model('misViajesM');
     $viajes = $this->misViajesM->viajesComoAcompananteActivos();
 		if (! $viajes) {
@@ -127,7 +128,7 @@ class MisViajesC extends CI_controller {
 												if ($viaje->estadoInscripcion == "pendiente") {
 													echo 	'<button type="button" class="btn btn-outline-danger btn-sm" onclick="modificarModalParaCancelar(', $viaje->idInscripcion ,')" data-toggle="modal" data-target="#mensajeCancelarSolicitud">Cancelar Solicitud </button> ';
 												}elseif ($viaje->estadoInscripcion == "aceptada") {
-													echo 	'<button type="button" class="btn btn-outline-danger btn-sm" onclick="modificarModalParaEliminar(', $viaje->idInscripcion ,')" data-toggle="modal" data-target="#mensajeCancelarSolicitud">Cancelar Participacion </button> ';
+													echo 	'<button type="button" class="btn btn-outline-danger btn-sm" onclick="modificarModalParaEliminar(', $viaje->idInscripcion, ',' , $viaje->id ,')" data-toggle="modal" data-target="#mensajeCancelarSolicitud">Cancelar Participacion </button> ';
 													echo 	'<button type="button" class="btn btn-outline-success btn-sm">Pagar Viaje </button> ';
 												}elseif ($viaje->estadoInscripcion == "pagada") {
 													echo '<div style="display: inline">¡Bien hecho! tu inscripción esta pagada</div> ';
@@ -251,14 +252,14 @@ class MisViajesC extends CI_controller {
 									</div>
 								</div>
 								<div class="col-6">
-									<button ', ($inscripcion->estado == "pagada") ? 'disabled' : '' ,' onclick="mostrarMensaje(', $inscripcion->id ,')" class="btn btn-danger float-right">Quitar copiloto</button>
+									<button ', ($inscripcion->estado == "pagada") ? 'disabled' : '' ,' onclick="mostrarMensaje(', $inscripcion->id,',', $_POST['idViaje'] ,')" class="btn btn-danger float-right">Quitar copiloto</button>
 								</div>
 							</div>
 							<hr>';
 		}
 	}
 
-	public function eliminarCopiloto(){ // En $_POST esta el idInscripcion
+	public function eliminarCopiloto(){ // En $_POST esta el idInscripcion y idViaje
 		$this->load->model('misViajesM');
 		echo $this->misViajesM->eliminarCopiloto();
 	}

@@ -71,8 +71,9 @@ class misViajesM extends CI_model{
 
 	public function cancelarParticipacion(){
 		$idInscripcion = $_POST['idInscripcion'];
+		$idViaje = $_POST['idViaje'];
 		$this->db->where('id', $idInscripcion)->update('inscripcion', array('estado' => 'cancelada'));
-
+		$this->db->query("UPDATE viaje SET lugaresDisponibles = lugaresDisponibles + 1 WHERE id = $idViaje");
 		$datos = array(
         'idCalificado' => $_SESSION['email'],
 		);
@@ -99,8 +100,10 @@ class misViajesM extends CI_model{
 
 	public function eliminarCopiloto(){
 		$idInscripcion = $_POST['idInscripcion'];
+		$idViaje = $_POST['idViaje'];
 		$this->db->where('id', $idInscripcion)->update('inscripcion', array('estado' => 'rechazada'));
-
+		$this->db->query("UPDATE viaje SET lugaresDisponibles = lugaresDisponibles + 1 WHERE id = $idViaje");
+		
 		$datos = array(
         'idCalificado' => $_SESSION['email'],
 		);

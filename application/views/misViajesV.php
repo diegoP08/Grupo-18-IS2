@@ -208,18 +208,18 @@
     }
   </script>
   <script> //modifica el boton del modal para eliminar la participacion como copiloto
-    function modificarModalParaEliminar(idInscripcion){
+    function modificarModalParaEliminar(idInscripcion, idViaje){
       $("#tituloMensajeCancelar").html("Cancelar participacion")
       $("#textoMensajeCancelar").html("¿Esta seguro de que desea cancelar su participacion en este viaje? (Se le descontara un punto a su reputacion)")
-      document.getElementById("botonCancelar").onclick = function(){ cancelarParticipacion(idInscripcion) };
+      document.getElementById("botonCancelar").onclick = function(){ cancelarParticipacion(idInscripcion, idViaje) };
     }
   </script>
   <script>
-    function cancelarParticipacion(idInscripcion){ // ejecuta la logica para cancelar una participacion en un viaje
+    function cancelarParticipacion(idInscripcion, idViaje){ // ejecuta la logica para cancelar una participacion en un viaje
       $.ajax({
           url: "misViajesC/cancelarParticipacion/",
           type: "POST",
-          data: {idInscripcion : idInscripcion},
+          data: {idInscripcion : idInscripcion , idViaje : idViaje},
           success: function(respuesta){
             cargarViajesComoAcompañanteActivos();
             mensajeCabecera('<div class="alert alert-success fixed-top" style="text-align: center">Participacion cancelada correctamente. Se desconto un punto a tu reputación</div>');
@@ -258,17 +258,17 @@
     }
   </script>
   <script> // muestra un mensaje de confirmacion para eliminar al copiloto
-    function mostrarMensaje(idInscripcion){
+    function mostrarMensaje(idInscripcion, idViaje){
       $("#mensajeConfirmacion").css({'display' : 'block'});
-      document.getElementById("botonQuitarCopiloto").onclick = function(){ eliminarCopiloto(idInscripcion) };
+      document.getElementById("botonQuitarCopiloto").onclick = function(){ eliminarCopiloto(idInscripcion, idViaje) };
     }
   </script>
   <script>
-    function eliminarCopiloto(idInscripcion){ // ejecuta la logica para eliminar un copiloto de un viaje
+    function eliminarCopiloto(idInscripcion, idViaje){ // ejecuta la logica para eliminar un copiloto de un viaje
       $.ajax({
           url: "misViajesC/eliminarCopiloto/",
           type: "POST",
-          data: {idInscripcion : idInscripcion},
+          data: {idInscripcion : idInscripcion, idViaje: idViaje},
           success: function(idViaje){
             $("#mensajeConfirmacion").css({'display' : 'none'});
             mensajeTop('<div class="alert alert-success fixed-top" style="text-align: center">Copiloto quitado correctamente. Se desconto un punto a tu reputacion</div>');

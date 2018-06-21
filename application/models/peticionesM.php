@@ -10,7 +10,7 @@ class PeticionesM extends CI_model{
 		$tomorrow = (new DateTime())->add(new DateInterval('P1D'))->format('Y-m-d H:i:s');
     $email=$_SESSION['email'];
     $query = $this->db->query(
-      "SELECT * , v.id as idViaje , v.estado as estadoViaje , u.id as idUsr
+      "SELECT * , v.id as idViaje , v.estado as estadoViaje , u.id as idUsr, i.id as id
       FROM inscripcion i INNER JOIN viaje v ON i.idViaje = v.id
                   INNER JOIN usuario u ON i.idUsuario = u.email
       WHERE i.estado = 'pendiente'
@@ -34,14 +34,16 @@ class PeticionesM extends CI_model{
 		return $resultado;
   }
 
-	public function aceptarPeticion($idViaje,$idInscripcion){
+	public function aceptarPeticion(){
+		$idInscripcion = $_POST['idInscripcion'];
+		$idViaje = $_POST['idViaje'];
 		$datosViaje = $this->db->select('lugaresDisponibles')->from('viaje')->where('id',$idViaje)->get()->row();
 		$lugaresDisponibles = $datosViaje->lugaresDisponibles; //obtengo lugares disponibles
 		if ($lugaresDisponibles == 0){ //Pregunto si hay cupo, si no hay termino y devuelvo falso
 			return FALSE;
 		}
-		$this->db->set('estado', 'aceptada')->where('id', $idInscripcion)->update('inscripcion');// acepto solicitud
-		$this->db->query("UPDATE viaje SET lugaresDisponibles = lugaresDisponibles - 1 WHERE id = '$idViaje'")->result();
+		$this->db->query("UPDATE inscripcion SET estado = 'aceptada' WHERE id = $idInscripcion");// acepto solicitud
+		$this->db->query("UPDATE viaje SET lugaresDisponibles = lugaresDisponibles - 1 WHERE id = $idViaje");
 		//$this->db->set('lugaresDisponibles', 'lugaresDisponibles-1', FALSE)->where('id', $idViaje)->update('viaje');  actualizo lugares disponibles
 		return TRUE;
 	}
