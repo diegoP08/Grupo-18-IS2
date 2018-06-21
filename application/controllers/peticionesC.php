@@ -2,7 +2,8 @@
 class PeticionesC extends CI_Controller {
 
 	public function index(){
-		$this->load->view('peticionesV');
+		$datos['bool']= ' ';
+		$this->load->view('peticionesV',$datos);
 		}
 
 	public function mostrarPeticiones(){
@@ -19,6 +20,8 @@ class PeticionesC extends CI_Controller {
 				$idCopiloto= $peticion->email;
 				$reputacion= $this->peticionesM->verReputacion($idCopiloto);
 				$salida=$peticion->salida;
+				$idViaje=$peticion->idViaje;
+				$idIns=$peticion->id;
 				$destino=$peticion->destino;
 				$nombreUser= $peticion->nombre;
 				$apellidoUser= $peticion->apellido;
@@ -46,10 +49,30 @@ class PeticionesC extends CI_Controller {
 			 echo 							'<th>Calificacion</th>';
 			 echo               '<td colspan=1>',$reputacion,'</td>';
 			 echo							'</tr>';
+			 echo							'<tr>';
+			 echo								'<td colspan=4>
+			 												<div class="row justify-content-center">
+			  											 <button class="btn btn-primary" style="background-color: #f37277; border-color:#f37277; margin-right: 4px" onclick="location.href=\'', site_url('/peticionesC/aceptarPeticion/'), $peticion->idViaje, '/' , $peticion->id ,'\' ">Aceptar</button>
+															 <button class="btn btn-primary" style="background-color: #DC143C; border-color:#f37277; margin-left: 4px" onclick="">Rechazar</button>
+															</div>
+													</td>';
+			 echo							'</tr>';
 			 echo						'</tbody>';
 			 echo					'</table>';
 			 echo '</div>';
 			}
+		}
+	}
+
+	public function aceptarPeticion($idViaje, $idInscripcion){
+		$this->load->model('peticionesM');
+		$this->peticionesM->aceptarPeticion($idViaje,$idInscripcion);
+		if($this->peticionesM->aceptarPeticion($idViaje,$idInscripcion) == FALSE){
+			$datos['bool'] = 'falso';
+			$this->load->view('peticionesV',$datos);
+		}else{
+			$datos['bool'] = 'exito';
+			$this->load->view('peticionesV',$datos);
 		}
 	}
 }

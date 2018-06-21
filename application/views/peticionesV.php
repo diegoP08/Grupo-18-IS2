@@ -11,6 +11,15 @@
       <div class="container" style="background: rgba(0,26,26,0.5);width: 90%;box-shadow: 0px 0px 10px 4px black;">
         <h1 align='center' style="color:white; padding: 10px;">Peticiones pendientes</h1>
         <div class="container" align="center" id="listaPeticiones" style="overflow-y: auto; padding: 6px;">
+          <?php if($bool=='exito'){
+                    echo '<div class="alert alert-success" align="center"> Peticion aceptada, sera redireccionado en 5 segundos </div>';
+                    header( "refresh:4;url=".site_url('peticionesC'));
+                }else{
+                    if($bool=='falso'){
+                      echo '<div class="alert alert-danger" align="center"> Cupo del viaje completo, sera redireccionado en 5 segundos </div>';
+                      header( "refresh:4;url=".site_url('peticionesC'));
+                    }
+          }?>
         </div>
       </div>
     </div>

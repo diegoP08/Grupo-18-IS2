@@ -81,8 +81,12 @@
       							</div>
                   </tr>
                   <tr>
-                    <td align="center"><button type="submit" class="btn btn-primary" style="box-shadow: 0px 0px 10px 1px black; background-color: #f37277; border-color:#f37277; " id="guardar">Guardar</button></td>
-                    <td align="left"><a href="<?=site_url('/verPerfilC')?>" class="btn btn-primary" style="box-shadow: 0px 0px 10px 1px black; background-color: #ff3333; border-color:#f37277;" title="cancel"> Cancelar</a></td>
+                    <td colspan="4">
+                      <div class="row justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="margin-right: 4px;box-shadow: 0px 0px 10px 1px black; background-color: #f37277; border-color:#f37277; " id="guardar">Guardar</button>
+                        <a href="<?=site_url('/verPerfilC')?>" class="btn btn-primary" style="margin-left: 4px;box-shadow: 0px 0px 10px 1px black; background-color: #ff3333; border-color:#f37277;" title="cancel"> Cancelar</a>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
