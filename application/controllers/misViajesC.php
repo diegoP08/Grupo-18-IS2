@@ -6,6 +6,7 @@ class MisViajesC extends CI_controller {
 	}
 
   public function viajesOfrecidosActivos(){
+		date_default_timezone_set('America/Argentina/La_Rioja');
     $this->load->model('misViajesM');
 		$viajes = $this->misViajesM->viajesOfrecidosActivos();
 		if (! $viajes) {
@@ -22,8 +23,11 @@ class MisViajesC extends CI_controller {
               <table class="table table-striped table-dark table-bordered" style="box-shadow: 0px 0px 10px 4px black;">
                 <tbody href="">
                   <tr>
-                    <td colspan="6">
-                      <div class="float-right">';
+                    <td colspan="6">';
+										if (!$faltanMasDe24Horas) {
+			echo 						'<h4 style="display: contents"><span class="badge badge-success">Al viaje le quedan menos de 24 horas para realizarse</span></h4> ';
+										}
+      echo             '<div class="float-right">';
       echo             '<button onclick="modificarPanel(', $viaje->id ,')" data-toggle="modal" data-target="#panelAdministracion" class="btn btn-outline-info btn-sm" type="button">Administrar copilotos</button> ';
       echo 						 '<button onclick="modificarModalEliminarViaje(', $viaje->id ,')" data-toggle="modal" data-target="#mensajeEliminarViaje" class="btn btn-outline-danger btn-sm" ', ($aceptados | !$faltanMasDe24Horas) ? "disabled" : "" ,' type="button">Eliminar</button> ';
       echo             '<button class="btn btn-outline-light btn-sm"', ($pendientes | $aceptados | !$faltanMasDe24Horas) ? "disabled" : "" ,' type="button">Editar</button>
@@ -131,14 +135,14 @@ class MisViajesC extends CI_controller {
 													echo 	'<button type="button" class="btn btn-outline-danger btn-sm" onclick="modificarModalParaEliminar(', $viaje->idInscripcion, ',' , $viaje->id ,')" data-toggle="modal" data-target="#mensajeCancelarSolicitud">Cancelar Participacion </button> ';
 													echo 	'<button type="button" class="btn btn-outline-success btn-sm">Pagar Viaje </button> ';
 												}elseif ($viaje->estadoInscripcion == "pagada") {
-													echo '<div style="display: inline">¡Bien hecho! tu inscripción esta pagada</div> ';
+													echo '<h4 style="display: contents"><span class="badge badge-success">¡Bien hecho! tu inscripción esta paga</span></h4> ';
 												}else{
-													echo '<div style="display: inline">Se cancelo o rechazo la inscripción</div> ';
+													echo '<h4 style="display: contents"><span class="badge badge-danger">Se cancelo o rechazo la inscripción</span></h4> ';
 												}
 											}elseif($viaje->estadoInscripcion != "cancelada" & $viaje->estadoInscripcion != "rechazada"){
-												echo '<div style="display: inline">Al viaje le quedan menos de 24 horas para realizarse</div> ';
+												echo '<h4 style="display: contents"><span class="badge badge-success">Al viaje le quedan menos de 24 horas para realizarse</span></h4> ';
 											}else{
-												echo '<div style="display: inline">Se cancelo o rechazo la inscripción</div> ';
+												echo '<h4 style="display: contents"><span class="badge badge-danger">Se cancelo o rechazo la inscripción</span></h4> ';
 											}
 									echo 	'<button class="btn btn-outline-primary btn-sm" onclick="location.href=\'', site_url('/verViajeC/cargarViaje/') , $viaje->id ,'\'" type="button">Ver viaje</button>
                       </div>
@@ -235,6 +239,13 @@ class MisViajesC extends CI_controller {
 	public function copilotosDeViaje(){ // En $_POST esta el idViaje
 		$this->load->model('misViajesM');
     $inscripciones = $this->misViajesM->copilotosViaje();
+
+		date_default_timezone_set('America/Argentina/La_Rioja');
+		$viaje = $this->misViajesM->datosViaje();
+		$fechaHoraSalida = new DateTime($viaje->fechaHoraSalida);
+		$tomorrow = (new DateTime())->add(new DateInterval('P1D'));
+		$faltanMasDe24Horas = $fechaHoraSalida > $tomorrow;
+
 		if (! $inscripciones) {
 			echo '<div class="alert alert-primary"> No hay copilotos aceptados </div>';
 		}
@@ -252,7 +263,7 @@ class MisViajesC extends CI_controller {
 									</div>
 								</div>
 								<div class="col-6">
-									<button ', ($inscripcion->estado == "pagada") ? 'disabled' : '' ,' onclick="mostrarMensaje(', $inscripcion->id,',', $_POST['idViaje'] ,')" class="btn btn-danger float-right">Quitar copiloto</button>
+									<button ', ($inscripcion->estado == "pagada" || !$faltanMasDe24Horas) ? 'disabled' : '' ,' onclick="mostrarMensaje(', $inscripcion->id,',', $_POST['idViaje'] ,')" class="btn btn-danger float-right">Quitar copiloto</button>
 								</div>
 							</div>
 							<hr>';

@@ -103,12 +103,19 @@ class misViajesM extends CI_model{
 		$idViaje = $_POST['idViaje'];
 		$this->db->where('id', $idInscripcion)->update('inscripcion', array('estado' => 'rechazada'));
 		$this->db->query("UPDATE viaje SET lugaresDisponibles = lugaresDisponibles + 1 WHERE id = $idViaje");
-		
+
 		$datos = array(
         'idCalificado' => $_SESSION['email'],
 		);
 		$this->db->insert('calificacionsistema', $datos);
 
 		return $this->db->select('idViaje')->from('inscripcion')->where('id',$idInscripcion)->get()->row()->idViaje;
+	}
+
+	public function datosViaje(){
+		$idViaje = $_POST['idViaje'];
+		$this->db->select('*')->from('viaje')->where(array( 'id' => $idViaje));
+		$query = $this->db->get();
+		return $query->row();
 	}
 }
