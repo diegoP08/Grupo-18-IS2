@@ -2,7 +2,7 @@
 /**
 * 
 */
-class eliminarViajeM extends CI_Controller
+class eliminarViajeM extends CI_Model
 {
 	
 	function __construct()
@@ -12,8 +12,9 @@ class eliminarViajeM extends CI_Controller
 
 	public function borrar($idViaje)
 	{
+		$datos = array('estado' => "cancelado");
 		$this->db->where('id', $idViaje);
-		$this->db->update('estado', 'cancelada');
+		$this->db->update('inscripcion', $datos);
 	}
 }
 
