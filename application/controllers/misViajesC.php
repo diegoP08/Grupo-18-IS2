@@ -30,7 +30,7 @@ class MisViajesC extends CI_controller {
       echo             '<div class="float-right">';
       echo             '<button onclick="modificarPanel(', $viaje->id ,')" data-toggle="modal" data-target="#panelAdministracion" class="btn btn-outline-info btn-sm" type="button">Administrar copilotos</button> ';
       echo 						 '<button onclick="modificarModalEliminarViaje(', $viaje->id ,')" data-toggle="modal" data-target="#mensajeEliminarViaje" class="btn btn-outline-danger btn-sm" ', ($aceptados | !$faltanMasDe24Horas) ? "disabled" : "" ,' type="button">Eliminar</button> ';
-      echo             '<button class="btn btn-outline-light btn-sm"', ($pendientes | $aceptados | !$faltanMasDe24Horas) ? "disabled" : "" ,' type="button">Editar</button>
+      echo             '<button class="btn btn-outline-light btn-sm"', ($pendientes | $aceptados | !$faltanMasDe24Horas) ? "disabled" : "" ,' onclick="location.href=\'', site_url('/editarViajeC/editarViaje/') , $viaje->id ,'\'" type="button">Editar</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="location.href=\'', site_url('/verViajeC/cargarViaje/') , $viaje->id ,'\'" type="button">Ver viaje</button>
                       </div>
                     </td>
