@@ -52,7 +52,7 @@ class PeticionesC extends CI_Controller {
 			 echo								'<td colspan=4>
 			 												<div class="row justify-content-center">
 			  											 <button class="btn btn-primary" style="background-color: #f37277; border-color:#f37277; margin-right: 4px" onclick="aceptarPeticion(', $peticion->id, ',' , $peticion->idViaje ,') ">Aceptar</button>
-															 <button class="btn btn-primary" style="background-color: #DC143C; border-color:#f37277; margin-left: 4px" onclick="">Rechazar</button>
+															 <button class="btn btn-primary" style="background-color: #DC143C; border-color:#f37277; margin-left: 4px" onclick="rechazarPeticion(', $peticion->id ,') ">Rechazar</button>
 															</div>
 													</td>';
 			 echo							'</tr>';
@@ -71,4 +71,10 @@ class PeticionesC extends CI_Controller {
 			echo 'falso';
 		}
 	}
+
+	public function rechazarPeticion(){
+		$this->load->model('peticionesM');
+		$this->peticionesM->rechazarPeticion();
+	}
+
 }

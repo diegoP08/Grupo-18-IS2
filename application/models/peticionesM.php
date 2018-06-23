@@ -44,8 +44,12 @@ class PeticionesM extends CI_model{
 		}
 		$this->db->query("UPDATE inscripcion SET estado = 'aceptada' WHERE id = $idInscripcion");// acepto solicitud
 		$this->db->query("UPDATE viaje SET lugaresDisponibles = lugaresDisponibles - 1 WHERE id = $idViaje");
-		//$this->db->set('lugaresDisponibles', 'lugaresDisponibles-1', FALSE)->where('id', $idViaje)->update('viaje');  actualizo lugares disponibles
 		return TRUE;
+	}
+
+	public function rechazarPeticion(){
+		$idInscripcion = $_POST['idInscripcion'];
+		$this->db->query("UPDATE inscripcion SET estado = 'rechazada' WHERE id = $idInscripcion");// rechazo solicitud
 	}
 
 }
