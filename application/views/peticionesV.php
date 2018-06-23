@@ -47,6 +47,20 @@
     }
   </script>
 
+  <script>
+    function rechazarPeticion(idInscripcion){
+      $.ajax({
+          url: "peticionesC/rechazarPeticion",
+          type: "POST",
+          data: {idInscripcion : idInscripcion},
+          success: function(){
+              mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">Solicitud rechazada</div>');
+              listaPeticiones();
+          }
+      });
+    }
+  </script>
+
   <script> //Muestra una alerta con el texto que recibe
     function mostrarMensaje(mensaje){
       $("#mensaje").html(mensaje);
