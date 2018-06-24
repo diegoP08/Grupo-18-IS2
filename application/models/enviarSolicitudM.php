@@ -14,8 +14,7 @@ class enviarSolicitudM extends CI_model
 	{
 		$campos = array(
 			'idUsuario' => $idUsuario,
-			'idViaje' => $idViaje,
-			'estado' => 'inactiva'
+			'idViaje' => $idViaje
 		);
 		$this->db->insert('inscripcion',$campos);	}
 }

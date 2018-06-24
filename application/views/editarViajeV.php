@@ -70,16 +70,20 @@
 									<tr>
 										<div class="form-group">
 											<th style="width: 50px"><label for="matricula"> Matricula </label></th>		
-											<td style="padding-right: 80px" colspan="3">
-												<input style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey"  class="form-control" placeholder="matricula" value="<?php echo $matricula ?>" name="matricula">
+											<td style="padding-right: 80px width=100%" colspan="3">
+												<select style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey width=80px"  class="form-control" id="matricula" onchange="cambiarDatos(this.value)"" name="matricula">
 											</td>
-											<th style="width: 50px"><label for="marca"> Marca </label></th>
-											<td style="padding-right: 80px" colspan="3">
+											<th style="width: 50px"><label for="marca" id="marca"> Marca </label></th>
+											<td style="padding-right: 40px" colspan="1">
 												<?php echo $marca?>
 											</td>
-											<th style="width: 50px"><label for="modelo"> Modelo </label></th>
-											<td style="padding-right: 80px" colspan="3">
+											<th style="width: 50px"><label for="modelo" id="modelo"> Modelo </label></th>
+											<td style="padding-right: 30px" colspan="1">
 												<?php echo $modelo?>
+											</td>
+											<th style="width: 50px"><label for="lugaresDisponibles"> Cupos </label></th>
+											<td style="padding-right: 50px" colspan="1">
+												<input style="width: 40px" type="text" class="form-control" id="lugaresDisponibles" name="lugaresDisponibles">
 											</td>
 										</div>
 									</tr>

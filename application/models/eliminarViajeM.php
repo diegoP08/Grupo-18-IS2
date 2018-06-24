@@ -12,9 +12,7 @@ class eliminarViajeM extends CI_Model
 
 	public function borrar($idViaje)
 	{
-		$datos = array('estado' => "cancelado");
-		$this->db->where('id', $idViaje);
-		$this->db->update('inscripcion', $datos);
+		$this->db->set('estado', 'inactiva')->where('id', $idViaje)->update('viaje');
 	}
 }
 
