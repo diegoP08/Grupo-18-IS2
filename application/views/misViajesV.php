@@ -235,7 +235,7 @@
   <script>
     function eliminarViaje(idViaje){ // ejecuta la logica para eliminar un viaje
       $.ajax({
-          url: "misViajesC/eliminarViaje/" + idViaje,
+          url: "eliminarViajeC/borrar/" + idViaje,
           type: "POST",
           data: {},
           success: function(respuesta){
