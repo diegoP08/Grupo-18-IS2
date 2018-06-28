@@ -8,6 +8,7 @@ class VerViajeC extends CI_controller {
 	}
 
 	public function cargarViaje($idViaje, $respuesta='') {
+		$this->load->model('publicarViajeM');
 		$this->load->model('verViajeM');
 		$datosViaje = ($this->verViajeM->datosViaje($idViaje));
 		$comentarios = ($this->verViajeM->comentariosDelViaje($idViaje));
@@ -32,7 +33,9 @@ class VerViajeC extends CI_controller {
 			'nombreConductor' => $datosConductor->nombre,
 			'apellidoConductor' => $datosConductor->apellido,
 			'tieneInscripcion' => false,
-			'respuesta' => $respuesta
+			'respuesta' => $respuesta,
+			'noCalificacionesPendientes' => empty($this->publicarViajeM->obtenerCalificacionesPendientesDe30Dias()),
+			'viajesSuperpuestos' => $this->verViajeM->viajeSuperpuesto( $datosViaje->fechaHoraSalida,  $datosViaje->fechaHoraLlegada)
 		);
 		if (isset($_SESSION['email'])) {
 			if($this->verViajeM->tieneIscripcion($idViaje,$_SESSION['email'])){

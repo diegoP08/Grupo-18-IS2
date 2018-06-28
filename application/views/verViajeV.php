@@ -5,6 +5,12 @@
       <div class="container" style="background: rgba(0,0,0,0.5); box-shadow: 0 0 10px 3px black; min-height: 100%;">
         <?php require "barraSuperior.php" ?>
         <br>
+        <?php if (!$noCalificacionesPendientes){ ?>
+          <div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>
+        <?php }elseif (! $viajesSuperpuestos) { ?>
+           <div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>
+        <?php } ?>
+
         <div class="container" style="width: 80%">
           <div class="row">
             <table class="table table-striped table-dark table-bordered" style="box-shadow: 0px 0px 10px 4px black">
@@ -13,8 +19,12 @@
                   <th scope="row" style="width: 200px; height: 5px">Conductor</th>
                   <td colspan="5"><?php echo $nombreConductor . ' ' . $apellidoConductor ?></td>
                   <td colspan="2">
-              <?php if(isset($_SESSION['email'])){
-                      if((($_SESSION['email']) != $creador) && (! $tieneInscripcion)){ ?>
+              <?php date_default_timezone_set('America/Argentina/La_Rioja');
+               $fechaViaje = new DateTime($fechaSalida);
+               $tomorrow = (new DateTime())->add(new DateInterval('P1D'));
+               $faltanMasDe24Horas = $fechaViaje > $tomorrow;
+               if(isset($_SESSION['email'])){
+                      if((($_SESSION['email']) != $creador) && (! $tieneInscripcion) && ($faltanMasDe24Horas) && ($noCalificacionesPendientes) && ($viajesSuperpuestos)) { ?>
                         <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>
                 <?php }else{ ?>
                         <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary disabled" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>

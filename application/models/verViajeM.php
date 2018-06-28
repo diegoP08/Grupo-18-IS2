@@ -63,6 +63,23 @@ class VerViajeM extends CI_model{
 		return 'exito';
 	}
 
+	function viajeSuperpuesto($salida, $llegada){
+		date_default_timezone_set('America/Argentina/La_Rioja');
+		$email=$_SESSION['email'];
+		$query = $this->db->query(
+			"SELECT *
+			FROM viaje v INNER JOIN inscripcion i ON i.idViaje=v.id
+			WHERE i.idUsuario = '$email'
+				AND ((fechaHoraSalida BETWEEN '$salida' AND '$llegada')
+					OR (fechaHoraLlegada BETWEEN '$salida' AND '$llegada')
+					OR (fechaHoraSalida <= '$salida' AND fechaHoraLlegada >= '$llegada')
+				)");
+		if ($query->result()){
+			return true;
+		}
+		return false;
+	}
+
 }
 
 ?>
