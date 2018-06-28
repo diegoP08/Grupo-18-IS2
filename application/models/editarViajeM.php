@@ -17,9 +17,9 @@ class editarViajeM extends CI_model
 		return $query->result()[0];
 	}
 	public function obtenerDatosDeVehiculo($matricula){ // En POST esta el id del vehiculo del cual quiero los datos
-		$this->db->select('*')->from('vehiculo')->where(array('matricula' => ($this->input->post('matricula'))));
+		$this->db->select('*')->from('vehiculo')->where(array('matricula' => $matricula));
 		$query = $this->db->get();
-		return ($query->result()[0]);
+		return ($query->result())[0];
 	}
 	public function guardar($idViaje)
 	{
@@ -29,7 +29,9 @@ class editarViajeM extends CI_model
 			'descripcion' => $this->input->POST('descripcion'),
 			'matricula' => $this->input->POST('matricula'),
 			'marca' => $datosVehiculo->marca,
-			'modelo' => $datosVehiculo->modelo
+			'modelo' => $datosVehiculo->modelo,
+			'cupo' => $this->input->POST('cupo'),
+			'lugaresDisponibles' => $this->input->POST('cupo')
 		);
 		$this->db->where('id', $idViaje);
 		$this->db->update('viaje', $campos);

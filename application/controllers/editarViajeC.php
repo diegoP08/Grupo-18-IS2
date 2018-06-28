@@ -63,6 +63,18 @@ class editarViajeC extends CI_controller
 		);
 		$this->load->view('editarViajeV',$viaje);
 	}
+
+	public function obtenerDatosDelVehiculo(){ //en post la matricula
+		$this->load->model('editarViajeM');
+		$vehiculo = $this->editarViajeM->obtenerDatosDelVehiculo();
+		$datos = new \stdClass();
+		$datos->marca = $vehiculo->marca;
+		$datos->modelo = $vehiculo->modelo;
+		$datos->asientos = $vehiculo->asientos;
+
+		echo json_encode($datos);
+	}
+
 }
 ?>
 

@@ -83,7 +83,7 @@
 											</td>
 											<th style="width: 50px"><label for="lugaresDisponibles"> Cupos </label></th>
 											<td style="padding-right: 50px" colspan="1">
-												<input style="width: 40px" type="text" class="form-control" id="lugaresDisponibles" name="lugaresDisponibles">
+												<input style="width: 40px" type="text" min="1" class="form-control" value="<?php echo $cupo ?>" id="lugaresDisponibles" name="cupo">
 											</td>
 										</div>
 									</tr>
@@ -110,5 +110,39 @@
 		<br>
 		</div>
 	</body>
+		<script>
+		// carga la lista de matriculas en el selector del formulario
+		  function cargarMatriculas(){
+		    $.ajax({
+		        url: "<?= site_url('vehiculosC/listaDeMatriculas'); ?>",
+		        type: "POST",
+		        data: {},
+		        success: function(respuesta){
+		          $( "#matricula" ).append(respuesta);
+		          $(document).find('option').filter(function(){return this.value=='<?= $matricula ?>'})[0].selected = true;
+		        }
+		    });
+		  }
+		</script>
+		<script>
+		// Cambia los datos de los inputs, en funcion de la matricula que se elige
+		  function cambiarDatos(matricula){
+		    $.ajax({
+		        url: "<?= site_url('editarViajeC/obtenerDatosDelVehiculo') ?>",
+		        type: "POST",
+		        data: {'matricula' : matricula},
+		        success: function(respuesta){
+		          var vehiculo = JSON.parse(respuesta);
+		          $('#marca').html(vehiculo.marca);
+		          $('#modelo').html(vehiculo.modelo);
+		          $('#lugaresDisponibles').val(0);
+		          $('#lugaresDisponibles').attr({'max' : vehiculo.asientos});
+		        }
+		    });
+		  }
+		</script>
+		<script>
+		  window.addEventListener('load', cargarMatriculas);
+		</script>
 		<?php require 'scripts.php' ?>
 </html>
