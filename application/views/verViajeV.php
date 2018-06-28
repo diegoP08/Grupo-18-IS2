@@ -5,11 +5,11 @@
       <div class="container" style="background: rgba(0,0,0,0.5); box-shadow: 0 0 10px 3px black; min-height: 100%;">
         <?php require "barraSuperior.php" ?>
         <br>
-        <?php if (!$noCalificacionesPendientes){ ?>
-          <div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>
-        <?php }elseif (! $viajesSuperpuestos) { ?>
-           <div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>
-        <?php } ?>
+        <?php if (!$noCalificacionesPendientes){
+         echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>';
+         }elseif (! $viajesSuperpuestos) { 
+           echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees viajes superpuestos</div>';
+         } ?>
 
         <div class="container" style="width: 80%">
           <div class="row">

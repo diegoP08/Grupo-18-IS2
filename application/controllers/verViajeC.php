@@ -34,11 +34,13 @@ class VerViajeC extends CI_controller {
 			'apellidoConductor' => $datosConductor->apellido,
 			'tieneInscripcion' => false,
 			'respuesta' => $respuesta,
-			'noCalificacionesPendientes' => empty($this->publicarViajeM->obtenerCalificacionesPendientesDe30Dias()),
-			'viajesSuperpuestos' => $this->verViajeM->viajeSuperpuesto( $datosViaje->fechaHoraSalida,  $datosViaje->fechaHoraLlegada)
+			'noCalificacionesPendientes' => true,
+			'viajesSuperpuestos' => true
 		);
 		if (isset($_SESSION['email'])) {
-			if($this->verViajeM->tieneIscripcion($idViaje,$_SESSION['email'])){
+			$viaje['noCalificacionesPendientes'] =  empty($this->publicarViajeM->obtenerCalificacionesPendientesDe30Dias());
+			$viaje['viajeSuperpuesto'] = $this->verViajeM->viajeSuperpuesto( $datosViaje->fechaHoraSalida,  $datosViaje->fechaHoraLlegada);
+			if($this->verViajeM->tieneInscripcion($idViaje,$_SESSION['email'])){
 				$viaje['tieneInscripcion'] = true;
 			}
 		}

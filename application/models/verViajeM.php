@@ -31,7 +31,7 @@ class VerViajeM extends CI_model{
 		return $query->result()[0];
 	}
 
-	public function tieneIscripcion($idViaje, $email)
+	public function tieneInscripcion($idViaje, $email)
 	{
 		$query = $this->db->query(
 			"SELECT *
@@ -64,6 +64,7 @@ class VerViajeM extends CI_model{
 	}
 
 	function viajeSuperpuesto($salida, $llegada){
+		if(isset($_SESSION['email'])){return false;}
 		date_default_timezone_set('America/Argentina/La_Rioja');
 		$email=$_SESSION['email'];
 		$query = $this->db->query(
