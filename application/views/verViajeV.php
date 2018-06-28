@@ -15,12 +15,12 @@
                   <td colspan="2">
               <?php if(isset($_SESSION['email'])){
                       if((($_SESSION['email']) != $creador) && (! $tieneInscripcion)){ ?>
-                        <button class="btn btn-primary" href="mandarSolicitud" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
+                        <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>
                 <?php }else{ ?>
-                        <button class="btn btn-primary disabled" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
+                        <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary disabled" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>
                 <?php }
                     }else{ ?>
-                      <button class="btn btn-primary disabled" style="background-color: #f37277; border-color:#f37277">Postularme para el viaje</button>
+                      <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary disabled" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>
               <?php } ?>
                   </td>
                 </tr>
