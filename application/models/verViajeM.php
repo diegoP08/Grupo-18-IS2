@@ -53,6 +53,16 @@ class VerViajeM extends CI_model{
 		$this->db->insert('comentario',$campos);
 	}
 
+	public function enviar($idViaje)
+	{
+		$campos = array(
+			'idUsuario' => $_SESSION['email'],
+			'idViaje' => $idViaje
+		);
+		$this->db->insert('inscripcion',$campos);
+		return 'exito';
+	}
+
 }
 
 ?>

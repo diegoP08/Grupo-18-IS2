@@ -71,7 +71,7 @@
 										<div class="form-group">
 											<th style="width: 50px"><label for="matricula"> Matricula </label></th>		
 											<td style="padding-right: 80px width=100%" colspan="3">
-												<select style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey width=80px"  class="form-control" id="matricula" onchange="cambiarDatos(this.value)"" name="matricula">
+												<select style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey width=80px"  class="form-control" id="matricula" onchange="cambiarDatos(this.value)" name="matricula">
 											</td>
 											<th style="width: 50px"><label for="marca"> Marca </label></th>
 											<td style="padding-right: 40px" colspan="1" id="marca">
@@ -83,7 +83,7 @@
 											</td>
 											<th style="width: 50px"><label for="lugaresDisponibles"> Cupos </label></th>
 											<td style="padding-right: 50px" colspan="1">
-												<input style="width: 40px" type="text" min="1" class="form-control" value="<?php echo $cupo ?>" id="lugaresDisponibles" name="cupo">
+												<input style="width: 50px" type="number" min="1" class="form-control" value="<?php echo $cupo ?>" id="lugaresDisponibles" name="cupo">
 											</td>
 										</div>
 									</tr>

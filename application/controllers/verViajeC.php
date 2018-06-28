@@ -7,7 +7,7 @@ class VerViajeC extends CI_controller {
 	public function index() {
 	}
 
-	public function cargarViaje($idViaje) {
+	public function cargarViaje($idViaje, $respuesta='') {
 		$this->load->model('verViajeM');
 		$datosViaje = ($this->verViajeM->datosViaje($idViaje));
 		$comentarios = ($this->verViajeM->comentariosDelViaje($idViaje));
@@ -31,7 +31,8 @@ class VerViajeC extends CI_controller {
 			'comentarios' => $comentarios,
 			'nombreConductor' => $datosConductor->nombre,
 			'apellidoConductor' => $datosConductor->apellido,
-			'tieneInscripcion' => false
+			'tieneInscripcion' => false,
+			'respuesta' => $respuesta
 		);
 		if (isset($_SESSION['email'])) {
 			if($this->verViajeM->tieneIscripcion($idViaje,$_SESSION['email'])){
@@ -85,6 +86,12 @@ class VerViajeC extends CI_controller {
 				</div>
 			</div>';
 		}
+	}
+	public function enviar($idViaje)
+	{
+		$this->load->model('verViajeM');
+		$dato=$this->verViajeM->enviar($idViaje);
+		$this->cargarViaje($idViaje,$dato);
 	}
 
 }
