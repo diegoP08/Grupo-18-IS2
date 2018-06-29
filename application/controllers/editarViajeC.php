@@ -1,10 +1,10 @@
 <?php
 /**
-* 
+*
 */
 class editarViajeC extends CI_controller
 {
-	
+
 	function __construct()
 	{
 		parent::__construct();
@@ -18,6 +18,7 @@ class editarViajeC extends CI_controller
 	{
 		$this->load->model('editarViajeM');
 		$datosViaje = ($this->editarViajeM->datosViaje($idViaje));
+		$datosVehiculo = $this->editarViajeM->obtenerDatosDeVehiculo($datosViaje->matricula);
 		$viaje = array(
 			'idViaje' => $idViaje,
 			'creador' => $datosViaje->idCreador,
@@ -33,9 +34,10 @@ class editarViajeC extends CI_controller
 			'descripcion' => $datosViaje->descripcion,
 			'estado' => $datosViaje->estado,
 			'lugaresDisponibles' => $datosViaje->lugaresDisponibles,
+			'asientosVehiculo' => $datosVehiculo->asientos,
 			'bool' => ' '
 		);
-		
+
 		$this->load->view("editarViajeV",$viaje);
 	}
 	public function guardar($idViaje)
@@ -77,5 +79,3 @@ class editarViajeC extends CI_controller
 
 }
 ?>
-
-

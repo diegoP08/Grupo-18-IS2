@@ -63,15 +63,15 @@
 										<div class="form-group">
 											<th style="width: 50px"><label for="costo"> Costo Del Viaje </label></th>
 											<td style="padding-right: 80px" colspan="10">
-												<input name="monto" style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" name="costo" type="text" class="form-control" placeholder="Costo Del Viaje" value="<?php echo $monto?>">
+												<input required name="monto" style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" name="costo" type="text" class="form-control" placeholder="Costo Del Viaje" value="<?php echo $monto?>">
 											</td>
 										</div>
 									</tr>
 									<tr>
 										<div class="form-group">
-											<th style="width: 50px"><label for="matricula"> Matricula </label></th>		
-											<td style="padding-right: 80px width=100%" colspan="3">
-												<select style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey width=80px"  class="form-control" id="matricula" onchange="cambiarDatos(this.value)" name="matricula">
+											<th style="width: 50px"><label for="matricula"> Matricula </label></th>
+											<td style="padding-right: 10px; width: 500px" colspan="3">
+												<select style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey; min-width:120px"  class="form-control" id="matricula" onchange="cambiarDatos(this.value)" name="matricula">
 											</td>
 											<th style="width: 50px"><label for="marca"> Marca </label></th>
 											<td style="padding-right: 40px" colspan="1" id="marca">
@@ -82,8 +82,8 @@
 												<?php echo $modelo?>
 											</td>
 											<th style="width: 50px"><label for="lugaresDisponibles"> Cupos </label></th>
-											<td style="padding-right: 50px" colspan="1">
-												<input style="width: 50px" type="number" min="1" class="form-control" value="<?php echo $cupo ?>" id="lugaresDisponibles" name="cupo">
+											<td style="padding-right: 80px" colspan="1">
+												<input required max="<?= $asientosVehiculo ?>" style="width: 90px" type="number" min="1" class="form-control" value="<?php echo $cupo ?>" id="lugaresDisponibles" name="cupo">
 											</td>
 										</div>
 									</tr>
@@ -97,7 +97,7 @@
 									</tr>
 									<tr>
 										<td align="left" colspan="10">
-											<button type="submit" class="btn btn-primary" style="box-shadow: 0px 0px 10px 1px black; background-color: #f37277; border-color:#f37277; " id="guardar">Guardar</button> 
+											<button type="submit" class="btn btn-primary" style="box-shadow: 0px 0px 10px 1px black; background-color: #f37277; border-color:#f37277; " id="guardar">Guardar</button>
 											<a href="<?php echo site_url('/misViajesC') ?>" class="btn btn-primary" style="box-shadow: 0px 0px 10px 1px black; background-color: #ff3333; border-color:#f37277;" title="cancel" colspan="100"> Cancelar</a>
 										</td>
 									</tr>

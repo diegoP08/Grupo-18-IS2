@@ -15,9 +15,9 @@
         }elseif ($tieneInscripcion) {
            echo '<div class="alert alert-success" align="center">Bien hecho ! ya estas inscripto a este viaje</div>';
         }
-         if (!$noCalificacionesPendientes){
+         if ($hayCalificacionesPendientes){
          echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>';
-         }elseif (! $viajesSuperpuestos) { 
+       }elseif ( $hayViajeSuperpuesto) {
            echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees viajes superpuestos</div>';
          } ?>
 
@@ -31,7 +31,7 @@
                   <td colspan="2">
               <?php
                if(isset($_SESSION['email'])){
-                      if((($_SESSION['email']) != $creador) && (! $tieneInscripcion) && ($faltanMasDe24Horas) && ($noCalificacionesPendientes) && ($viajesSuperpuestos)) { ?>
+                      if((($_SESSION['email']) != $creador) && (! $tieneInscripcion) && ($faltanMasDe24Horas) && (! $hayCalificacionesPendientes) && (! $hayViajeSuperpuesto)) { ?>
                         <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>
                 <?php }else{ ?>
                         <a href="<?php echo base_url() ,'index.php/verViajeC/enviar/', $idViaje ?>" class="btn btn-primary disabled" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">postularme para el viaje</a>
