@@ -63,7 +63,7 @@
 										<div class="form-group">
 											<th style="width: 50px"><label for="costo"> Costo Del Viaje </label></th>
 											<td style="padding-right: 80px" colspan="10">
-												<input required name="monto" style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" name="costo" type="text" class="form-control" placeholder="Costo Del Viaje" value="<?php echo $monto?>">
+												<input min="1" required name="monto" style="background-color: rgba(89, 89, 89, 0.9); color:white; border-color:grey" name="costo" type="number" class="form-control" placeholder="Costo Del Viaje" value="<?php echo $monto?>">
 											</td>
 										</div>
 									</tr>
