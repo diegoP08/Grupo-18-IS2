@@ -45,7 +45,8 @@ class misViajesM extends CI_model{
     $query = $this->db->query(
       "SELECT * , i.id as idInscripcion , i.estado as estadoInscripcion
       FROM inscripcion i INNER JOIN viaje v ON v.id = i.idViaje
-      WHERE i.idUsuario = '$idUsuario'
+      WHERE v.estado = 'activa'
+						AND i.idUsuario = '$idUsuario'
             AND v.fechaHoraLlegada > '$hoy'");
     return $query->result();
   }
@@ -59,7 +60,8 @@ class misViajesM extends CI_model{
     $query = $this->db->query(
       "SELECT * , i.id as idInscripcion , i.estado as estadoInscripcion , v.id as idViaje
       FROM inscripcion i INNER JOIN viaje v ON v.id = i.idViaje
-      WHERE i.idUsuario = '$idUsuario'
+      WHERE v.estado = 'activa'
+						AND i.idUsuario = '$idUsuario'
             AND v.fechaHoraLlegada < '$hoy'");
     return $query->result();
   }
