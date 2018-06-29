@@ -17,7 +17,7 @@
         }
          if ($hayCalificacionesPendientes){
          echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>';
-       }elseif ( $hayViajeSuperpuesto) {
+       }elseif ( $hayViajeSuperpuesto && !$tieneInscripcion) {
            echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees viajes superpuestos</div>';
          } ?>
 
