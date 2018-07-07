@@ -32,8 +32,6 @@ class BuscarViajeM extends CI_model{
 		$salida = $_POST['origen'];
 		$destino = $_POST['destino'];
 		$fechaSalida = $_POST['fechaSalida'];
-		$marca = $_POST['marca'];
-		$modelo = $_POST['modelo'];
 
 		date_default_timezone_set('America/Argentina/La_Rioja');
 		$tomorrow = (new DateTime())->add(new DateInterval('P1D'))->format('Y-m-d H:i:s');
@@ -79,8 +77,6 @@ class BuscarViajeM extends CI_model{
 		$salida = $_POST['origen'];
 		$destino = $_POST['destino'];
 		$fechaSalida = $_POST['fechaSalida'];
-		$marca = $_POST['marca'];
-		$modelo = $_POST['modelo'];
 		$inicio = ($pagina - 1) * 10;
 
 		date_default_timezone_set('America/Argentina/La_Rioja');
