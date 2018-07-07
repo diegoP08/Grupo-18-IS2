@@ -46,6 +46,7 @@ class editarViajeC extends CI_controller
 		$this->load->model('editarViajeM');
 		$this->editarViajeM->guardar($idViaje);
 		$datosViaje = ($this->editarViajeM->datosViaje($idViaje));
+		$datosVehiculo = $this->editarViajeM->obtenerDatosDeVehiculo($datosViaje->matricula);
 		$viaje = array(
 			'idViaje' => $idViaje,
 			'creador' => $datosViaje->idCreador,
@@ -61,6 +62,7 @@ class editarViajeC extends CI_controller
 			'descripcion' => $datosViaje->descripcion,
 			'estado' => $datosViaje->estado,
 			'lugaresDisponibles' => $datosViaje->lugaresDisponibles,
+			'asientosVehiculo' => $datosVehiculo->asientos,
 			'bool' => 'exito'
 		);
 		$this->load->view('editarViajeV',$viaje);
