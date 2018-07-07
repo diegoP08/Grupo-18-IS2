@@ -14,7 +14,7 @@
       </div>
       <br>
       <div class="row justify-content-center" style="color:white">
-        <div class="col-8">
+        <div class="col">
           <div class="" id="alerta"></div>
           <form id="formularioBusqueda" method="post" action="return false" onsubmit="return false">
             <div class="form-row">
@@ -28,7 +28,15 @@
               </div>
               <div class="col" style="padding-bottom: 2px">
                 <label for="origen">Fecha de salida:</label>
-                <input id="fechaSalida" type="date" class="form-control" min="<?php echo date('Y-m-d') ?>" name="fechaSalida">
+                <input style="height: 40px" id="fechaSalida" type="date" class="form-control" min="<?php echo date('Y-m-d') ?>" name="fechaSalida">
+              </div>
+              <div class="col">
+                <label for="marca">Marca vehiculo:</label>
+                <input placeholder="Ingrese una marca" style="height: 40px" id="marca" type="text" class="form-control" name="marca">
+              </div>
+              <div class="col">
+                <label for="mdoelo">Modelo vehiculo:</label>
+                <input placeholder="Ingrese un modelo" style="height: 40px" id="modelo" type="text" class="form-control" name="modelo">
               </div>
               <button type="button" style="margin-left: 5px; margin-top: 32px ;height: 40px; background-color: #f37277; border-color:#f37277" class="btn btn-primary" onclick="comprobar()">Buscar</button>
             </div>

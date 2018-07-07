@@ -70,6 +70,7 @@ class VerViajeM extends CI_model{
 			"SELECT *
 			FROM viaje v INNER JOIN inscripcion i ON i.idViaje=v.id
 			WHERE i.idUsuario = '$email'
+					AND (i.estado != 'rechazada' AND i.estado != 'cancelada')
 					AND ((fechaHoraSalida BETWEEN '$salida' AND '$llegada')
 					OR (fechaHoraLlegada BETWEEN '$salida' AND '$llegada')
 					OR (fechaHoraSalida <= '$salida' AND fechaHoraLlegada >= '$llegada'))");

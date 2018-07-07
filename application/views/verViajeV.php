@@ -206,6 +206,7 @@
             type: "POST",
             data: {idViaje: <?= $idViaje ?> , texto: texto},
             success: function(respuesta){
+              $("#comentario").val("");
               recargarComentarios();
               mostrarMensaje('<div class="alert alert-success fixed-top" style="text-align: center">Comentario realizado correctamente</div>');
             }

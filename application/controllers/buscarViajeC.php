@@ -14,6 +14,8 @@ class BuscarViajeC extends CI_controller {
 		$datos['origen'] = $_POST['origen'];
 		$datos['destino'] = $_POST['destino'];
 		$datos['fechaSalida'] = $_POST['fechaSalida'];
+		$datos['marca'] = $_POST['marca'];
+		$datos['modelo'] = $_POST['modelo'];
 		$datos['pagina'] = $pagina;
 
 		//Cargo parametros para la consulta (aplicar orden)

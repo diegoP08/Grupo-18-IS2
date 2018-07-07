@@ -5,11 +5,35 @@ class BuscarViajeM extends CI_model{
 		parent:: __construct();
 	}
 
+	//Funcion usada para filtrar por marca los resultados del array
+	function filtrarPorMarca($viaje){
+		return($viaje->marca == $_POST['marca']);
+	}
+
+	//Funcion usada para filtrar por modelo los resultados del array
+	function filtrarPorModelo($viaje){
+		return($viaje->modelo == $_POST['modelo']);
+	}
+
+	function filtrarPorMarcaModelo($viajes){
+		//Logica para filtrar por marca o modelo (Si se especifico). Utilizo las funciones de arriba
+		if ($_POST['marca']) {
+			$viajes = array_filter($viajes, "self::filtrarPorMarca");
+		}
+
+		if ($_POST['modelo']) {
+			$viajes = array_filter($viajes, "self::filtrarPorModelo");
+		}
+		return $viajes;
+	}
+
 	//Devuelve la cantidad de viajes a mostrar
 	public function contarViajes(){
 		$salida = $_POST['origen'];
 		$destino = $_POST['destino'];
 		$fechaSalida = $_POST['fechaSalida'];
+		$marca = $_POST['marca'];
+		$modelo = $_POST['modelo'];
 
 		date_default_timezone_set('America/Argentina/La_Rioja');
 		$tomorrow = (new DateTime())->add(new DateInterval('P1D'))->format('Y-m-d H:i:s');
@@ -25,7 +49,7 @@ class BuscarViajeM extends CI_model{
 								AND destino = '$destino'
 								AND fechaHoraSalida LIKE '$fechaSalida%'
 		      ORDER BY fechaHoraSalida asc");
-		    return $query->num_rows();
+		    $viajes = $query->result();
 			}else{ //Busca solamente por origen y destino
 				$query =  $this->db->query(
 		      "SELECT *
@@ -35,7 +59,7 @@ class BuscarViajeM extends CI_model{
 								AND salida = '$salida'
 								AND destino = '$destino'
 		      ORDER BY fechaHoraSalida asc");
-		    return $query->num_rows();
+		    $viajes = $query->result();
 			}
 		}else{// Busca todos los viajes
 			$query =  $this->db->query(
@@ -44,8 +68,10 @@ class BuscarViajeM extends CI_model{
 				WHERE estado = 'activa'
 				AND fechaHoraSalida > '$tomorrow'
 				ORDER BY fechaHoraSalida asc");
-			return $query->num_rows();
+			$viajes = $query->result();
 		}
+
+		return count($this->filtrarPorMarcaModelo($viajes));
 	}
 
 	// Devuelve los viajes para la correspondiente pagina
@@ -53,6 +79,8 @@ class BuscarViajeM extends CI_model{
 		$salida = $_POST['origen'];
 		$destino = $_POST['destino'];
 		$fechaSalida = $_POST['fechaSalida'];
+		$marca = $_POST['marca'];
+		$modelo = $_POST['modelo'];
 		$inicio = ($pagina - 1) * 10;
 
 		date_default_timezone_set('America/Argentina/La_Rioja');
@@ -70,7 +98,7 @@ class BuscarViajeM extends CI_model{
 								AND fechaHoraSalida LIKE '$fechaSalida%'
 		      $ordenPorFecha $ordenPorMonto
 					LIMIT $inicio , 10");
-		    return $query->result();
+		    $viajes = $query->result();
 			}else{ //Busca solamente por origen y destino
 				$query =  $this->db->query(
 		      "SELECT *
@@ -81,7 +109,7 @@ class BuscarViajeM extends CI_model{
 								AND destino = '$destino'
 		      $ordenPorFecha $ordenPorMonto
 					LIMIT $inicio , 10");
-		    return $query->result();
+		    $viajes = $query->result();
 			}
 		}else{// Busca todos los viajes
 			$query =  $this->db->query(
@@ -91,8 +119,10 @@ class BuscarViajeM extends CI_model{
 							AND fechaHoraSalida > '$tomorrow'
 				$ordenPorFecha $ordenPorMonto
 				LIMIT $inicio , 10");
-			return $query->result();
+			$viajes = $query->result();
 		}
+
+		return $this->filtrarPorMarcaModelo($viajes);
 	}
 
   public function proximos10viajes(){
