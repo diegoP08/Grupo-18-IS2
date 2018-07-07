@@ -35,7 +35,8 @@ class VerViajeC extends CI_controller {
 			'tieneInscripcion' => false,
 			'respuesta' => $respuesta,
 			'hayCalificacionesPendientes' => false,
-			'hayViajeSuperpuesto' => false
+			'hayViajeSuperpuesto' => false,
+			'cupo' => $datosViaje->cupo
 		);
 		if (isset($_SESSION['email'])) {
 			$viaje['hayCalificacionesPendientes'] = ! empty($this->publicarViajeM->obtenerCalificacionesPendientesDe30Dias());

@@ -25,6 +25,8 @@ class PeticionesC extends CI_Controller {
 				$nombreUser= $peticion->nombre;
 				$apellidoUser= $peticion->apellido;
 				$horaSalida= $peticion->fechaHoraSalida;
+				$asientos = $peticion->cupo;
+				$pasajeros = $asientos - $peticion->lugaresDisponibles;
 			 echo '<div class="row" style="margin-top:10px; width: 80%;">';
 			 echo					'<table class="table table-striped table-dark table-bordered" style="box-shadow: 0px 0px 10px 4px black;">';
 			 echo						'<tbody href="">';
@@ -49,6 +51,10 @@ class PeticionesC extends CI_Controller {
 			 echo               '<td colspan=1>',$reputacion,'</td>';
 			 echo							'</tr>';
 			 echo							'<tr>';
+			 echo							'<tr>';
+			 echo								'<th>Cupo del viaje</th>';
+			 echo									'<td colspan=3>', $pasajeros ,'/', $asientos ,'</td>';
+			 echo							'</tr>';
 			 echo								'<td colspan=4>
 			 												<div class="row justify-content-center">
 			  											 <button class="btn btn-primary" style="background-color: #f37277; border-color:#f37277; margin-right: 4px" onclick="aceptarPeticion(', $peticion->id, ',' , $peticion->idViaje ,') ">Aceptar</button>

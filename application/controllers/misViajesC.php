@@ -57,7 +57,7 @@ class MisViajesC extends CI_controller {
                   </tr>
 									<tr>
                     <th scope="row">Copilotos</th>
-                    <td colspan="2"> Aceptados: ', $aceptados ,'</td>
+                    <td colspan="2"> Aceptados: ', $aceptados ,'/', $viaje->cupo ,'</td>
 										<td colspan="3"> Pendientes: ', $pendientes ,'</td>
                   </tr>
                 </tbody>

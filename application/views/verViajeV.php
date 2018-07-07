@@ -58,7 +58,9 @@
                 </tr>
                 <tr>
                   <th scope="row">Costo del viaje</th>
-                  <td colspan="7"><?php echo round( $monto/($cupo+1) , 2); ?></td>
+                  <td colspan="3"><?php echo round( $monto/($cupo+1) , 2); ?></td>
+                  <th scope="row">Cupo</th>
+                  <td colspan="3"><?php echo $cupo ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Patente</th>

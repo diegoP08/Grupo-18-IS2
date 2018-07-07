@@ -80,8 +80,7 @@
            ¿Esta seguro de que desea cancelar?
          </div>
          <div class="modal-footer">
-           <button type="button" class="btn btn-secondar" data-dismiss="modal">No cancelar</button>
-           <button type="button" class="btn btn-danger" data-dismiss="modal" id="botonCancelar">Cancelar</button>
+           <button type="button" class="btn btn-danger" data-dismiss="modal" id="botonCancelar">Si, deseo cancelar</button>
          </div>
        </div>
      </div>
