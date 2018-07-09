@@ -1,3 +1,4 @@
+<?php if ($estado == "inactiva"){redirect("start");}?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr" style="height:100%">
   <?php require "head.php" ?>
@@ -6,20 +7,23 @@
         <?php require "barraSuperior.php" ?>
         <br>
         <?php
-         date_default_timezone_set('America/Argentina/La_Rioja');
-               $fechaViaje = new DateTime($fechaSalida);
-               $tomorrow = (new DateTime())->add(new DateInterval('P1D'));
-               $faltanMasDe24Horas = $fechaViaje > $tomorrow;
-        if (!$faltanMasDe24Horas) {
-           echo '<div class="alert alert-success" align="center">Al viaje le quedan menos de 24 hs para realizarse o ya fue realizado</div>';
-        }elseif ($tieneInscripcion) {
-           echo '<div class="alert alert-success" align="center">Bien hecho ! ya estas inscripto a este viaje</div>';
-        }
-         if ($hayCalificacionesPendientes){
-         echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>';
-       }elseif ( $hayViajeSuperpuesto && !$tieneInscripcion) {
-           echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees viajes superpuestos</div>';
-         } ?>
+          date_default_timezone_set('America/Argentina/La_Rioja');
+          $fechaViaje = new DateTime($fechaSalida);
+          $tomorrow = (new DateTime())->add(new DateInterval('P1D'));
+          $faltanMasDe24Horas = $fechaViaje > $tomorrow;
+          if (!$faltanMasDe24Horas) {
+            echo '<div class="alert alert-success" align="center">Al viaje le quedan menos de 24 hs para realizarse o ya fue realizado</div>';
+          }elseif ($tieneInscripcion) {
+            echo '<div class="alert alert-success" align="center">Bien hecho ! ya estas inscripto a este viaje</div>';
+          }
+          if (isset($_SESSION['email']) && $_SESSION['email'] != $creador) {
+            if ($hayCalificacionesPendientes){
+              echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees calificaciones pendientes de un viaje de mas de 30 dias</div>';
+            }elseif ( $hayViajeSuperpuesto && !$tieneInscripcion) {
+              echo '<div class="alert alert-danger" align="center">No podras inscribirte ya que posees viajes superpuestos</div>';
+            }
+          }
+        ?>
 
         <div class="container" style="width: 80%">
           <div class="row">
