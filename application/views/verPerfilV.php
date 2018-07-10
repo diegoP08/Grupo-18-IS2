@@ -12,7 +12,9 @@
               <tbody>
                 <tr>
                   <td align="left"><h2 style="font-style: italic; color: white"><?php echo $_SESSION['nombre']; echo " "; echo $_SESSION['apellido'];?></h2></td>
-                  <td align="right"><a href="<?php echo base_url() ?>index.php/editarPerfilC" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277; " title="Editar">Editar perfil</a></td>
+                  <td align="right"><a href="<?php echo base_url() ?>index.php/editarPerfilC" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277;">Editar perfil</a>
+                    <a href="<?php echo base_url() ?>index.php/cambiarPasswordC" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #b30059; border-color:#b30059;">Cambiar contraseña</a></td>
+
                 </tr>
               </tbody>
             </table>
