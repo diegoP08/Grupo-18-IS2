@@ -23,13 +23,17 @@
         if($bool=='fallo'){
           echo '<div class="alert alert-danger" align="center" id="fallo"> La contraseña no pudo ser cambiada, intente nuevamente. </div>';
         }else{
-          if($bool == 'noCoincide'){
-            echo '<div class="alert alert-danger" align="center" id="noCoincide"> Las contraseñas no coinciden, intente nuevamente. </div>';
+          if($bool == 'anteriorIgual'){
+            echo '<div class="alert alert-danger" align="center" id="anteriorIgual"> La contraseña es igual a la anterior, intente nuevamente. </div>';
           }else{
-            if($bool == 'actualNoCoincide'){
-              echo '<div class="alert alert-danger" align="center" id="actualNoCoincide"> Contraseña actual incorrecta, intente nuevamente. </div>';
+            if($bool == 'noCoincide'){
+              echo '<div class="alert alert-danger" align="center" id="noCoincide"> Las contraseñas no coinciden, intente nuevamente. </div>';
+            }else{
+              if($bool == 'actualNoCoincide'){
+                echo '<div class="alert alert-danger" align="center" id="actualNoCoincide"> Contraseña actual incorrecta, intente nuevamente. </div>';
+              }
             }
-          }
+          }  
         }
       }?>
       <br>
@@ -91,6 +95,9 @@
     });
     $(document).ready(function () {
       $("#actualNoCoincide").delay(3000).fadeOut("slow");
+    });
+    $(document).ready(function () {
+      $("#anteriorIgual").delay(3000).fadeOut("slow");
     });
   </script>
 </html>

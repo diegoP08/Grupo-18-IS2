@@ -23,15 +23,19 @@ class CambiarPasswordC extends CI_Controller{
         $userid = $_SESSION['id'];
         $contrasena = $this->CambiarPasswordM->obtenerPassword($userid);
         if($contrasena->contrasena == $passActual){
-          if($passNueva == $confirmarPass){
-            if($this->CambiarPasswordM->updatePassword($passNueva, $userid)){
-              $datos['bool'] = 'exito';
-            }else{
-              $datos['bool'] = 'fallo';
-            }
-          }else{
-            $datos['bool'] = 'noCoincide';
-          }
+					if($passActual != $passNueva){
+						if($passNueva == $confirmarPass){
+	            if($this->CambiarPasswordM->updatePassword($passNueva, $userid)){
+	              $datos['bool'] = 'exito';
+	            }else{
+	              $datos['bool'] = 'fallo';
+	            }
+	          }else{
+	            $datos['bool'] = 'noCoincide';
+	          }
+					}else{
+						$datos['bool'] = 'anteriorIgual';
+					}
         }else{
           $datos['bool'] = 'actualNoCoincide';
         }
