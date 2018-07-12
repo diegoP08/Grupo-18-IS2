@@ -25,7 +25,30 @@
 									<td align="right">
 										<a href="<?php echo base_url() ?>index.php/editarPerfilC" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #f37277; border-color:#f37277;">Editar perfil</a>
 										<a href="<?php echo base_url() ?>index.php/cambiarPasswordC" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #b30059; border-color:#b30059;">Cambiar contraseña</a>
-										<a href="<?php echo base_url() ?>index.php/verPerfilC/deshabilitar" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #ad0000; border-color:#ad0000;" >Deshabilitar cuenta</a>
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-primary" data-toggle="modal" style="box-shadow: 0px 0px 10px 2px black; background-color: #ad0000; border-color:#ad0000;" data-target="#exampleModal">
+										Deshabilitar cuenta
+										</button>
+										<!-- Modal -->
+										<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="color: black" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Deshabilitar cuenta</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body" style="display: flex;">
+														¿Desea desahabilitar la cuenta?
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+														<a href="<?php echo base_url() ?>index.php/verPerfilC/deshabilitar" class="btn btn-primary" style="box-shadow: 0px 0px 10px 2px black; background-color: #ad0000; border-color:#ad0000;" >Deshabilitar cuenta</a>
+													</div>
+												</div>
+											</div>
+										</div>	
 									</td>
 								</tr>
 							</tbody>

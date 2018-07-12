@@ -30,6 +30,7 @@ if (isset($_SESSION['email'])){
       </div>
       <ul class="nav" style="margin-left: 67.575px">
         <li class="nav-item"><a href="<?=site_url('/inicioC') ?>" class="nav-link" style="color: #f37277"> <h5 >INICIO</h5></a> </li>
+        <li class="nav-item"><a href="<?=site_url('/start/sobreNosotros') ?>" class="nav-link" style="color: #f37277"> <h5 >AYUDA</h5></a> </li>
         <li class="nav-item"><a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"><a href="<?=site_url('/publicarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>PUBLICAR VIAJE</h5> </a> </li>
         <li class="nav-item"><a href="<?=site_url('/buscarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
@@ -57,7 +58,7 @@ if (isset($_SESSION['email'])){
       </div>
       <ul class="nav" style="margin-left: 67.575px">
         <li class="nav-item"> <a href="<?= site_url() ?>" class="nav-link" style="color: #f37277"> <h5>INICIO</h5></a> </li>
-        <li class="nav-item"> <a href="<?=site_url('/start/sobreNosotros')?>" class="nav-link" style="color: #f37277"> <h5>SOBRE NOSOTROS</h5> </a> </li>
+        <li class="nav-item"> <a href="<?=site_url('/start/sobreNosotros')?>" class="nav-link" style="color: #f37277"> <h5>AYUDA</h5> </a> </li>
         <li class="nav-item"> <a href="<?=site_url('/start/contacto') ?>" class="nav-link" style="color: #f37277"> <h5>CONTACTO</h5> </a> </li>
         <li class="nav-item"> <a href="<?=site_url('/buscarViajeC') ?>" class="nav-link" style="color: #f37277"> <h5>BUSCAR VIAJE</h5> </a> </li>
       </ul>
