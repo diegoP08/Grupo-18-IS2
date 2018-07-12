@@ -12,7 +12,7 @@
 						header( "refresh:5;url=".site_url('start'));
 						$this->session->sess_destroy();
 					}elseif ($deshabilito=='tieneViajes') {
-						echo '<div class="alert alert-success" align="center" id="tieneViajes"> La cuenta tiene viajes pendientes </div>';
+						echo '<div class="alert alert-danger" align="center" id="tieneViajes"> La cuenta tiene viajes pendientes </div>';
 						//	header( "refresh:5;url=".site_url('verPerfilC'));
 					}
 				?>
