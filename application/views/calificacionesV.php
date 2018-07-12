@@ -42,13 +42,16 @@
      <div class="modal-dialog" role="document">
        <div class="modal-content">
          <div class="modal-header">
-           <h5 class="modal-title">Calificar usuario</h5>
+           <h5 class="modal-title"style="margin-left: auto;">Calificar usuario</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
          <div class="modal-body" align="center">
-           Por favor confirme su calificacion
+           Por favor confirme su calificación, puede añadir un comentario a la misma
+           <br>
+           <br>
+           <textarea id="comentario" rows="8" style="resize: none; width: 100%; height: 143px;"></textarea>
          </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-outline-success" data-dismiss="modal" id="botonCalificar">Confirmar</button>
@@ -90,14 +93,16 @@
   </script>
   <script>
     function calificar(emailCalificado,idViaje,puntuacion){ // ejecuta la logica para calificar un usuario
+      var comentario = $("#comentario").val();
       $.ajax({
           url: "calificacionesC/calificarUsuario/",
           type: "POST",
-          data: {emailCalificado: emailCalificado, idViaje: idViaje, puntuacion: puntuacion},
+          data: {emailCalificado: emailCalificado, idViaje: idViaje, puntuacion: puntuacion, comentario: comentario},
           success: function(respuesta){
             mensaje('<div class="alert alert-success fixed-top" style="text-align: center">Calificacion realizada correctamente</div>');
             cargarCalificacionesParaCopilotos();
             cargarCalificacionesParaConductores();
+            $("#comentario").val('');
           }
       });
     }

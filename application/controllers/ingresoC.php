@@ -39,6 +39,10 @@ class IngresoC extends CI_Controller{
 				$_SESSION['localidad'] = $user->localidad;
 				$_SESSION['celular'] = $user->celular;
 
+				if ($user->deshabilitado == "si"){
+					$this->db->set('deshabilitado', 'no', TRUE)->where('email', $_SESSION['email'])->update('usuario');
+				}
+
 				redirect("inicioC", "refresh"); //redirecciona a la pagina de perfil
 			}else{
 				$this->form_validation->set_rules('email', 'Email', 'callback_error');

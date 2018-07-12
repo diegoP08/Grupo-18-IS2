@@ -95,7 +95,7 @@ class calificacionesC extends CI_controller {
 		}
   }
 
-  function calificarUsuario(){ //En $_POST esta idViaje, emailCalificado, puntuacion
+  function calificarUsuario(){ //En $_POST esta idViaje, emailCalificado, puntuacion, comentario
     $this->load->model('calificacionesM');
 		$this->calificacionesM->calificarUsuario();
   }

@@ -1,3 +1,4 @@
+<?php if ($usuarioDeshabilitado == "si"){redirect("start");}?>
 <?php if ($estado == "inactiva"){redirect("start");}?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr" style="height:100%">

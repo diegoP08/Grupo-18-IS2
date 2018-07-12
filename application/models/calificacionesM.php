@@ -50,6 +50,7 @@ class calificacionesM extends CI_model{
 		$this->db->insert('calificacion', array('idCalificador' => $_SESSION['email'],
 																						'idCalificado' => $_POST['emailCalificado'],
 																						'idViaje' => $_POST['idViaje'],
-																						'puntuacion' => $_POST['puntuacion']));
+																						'puntuacion' => $_POST['puntuacion'],
+																						'comentario' => $_POST['comentario']));
 	}
 }
