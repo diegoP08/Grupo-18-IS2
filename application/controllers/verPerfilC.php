@@ -29,6 +29,8 @@ class VerPerfilC extends CI_Controller {
 			}elseif($puntuacion['puntuacion'] < 0){
 				$puntuacion['puntuacion'] = 0;
 			}
+			$puntuacion['deshabilito']=' ';
+
 			$this->load->view('verPerfilV', $puntuacion);
 		}
 
@@ -59,6 +61,55 @@ class VerPerfilC extends CI_Controller {
       }
 
     }
+    	public function deshabilitar()
+	{
+		$this->load->model('verPerfilM');
+		if (( $this->verPerfilM->noTieneViajesComoConductor())&&($this->verPerfilM->noTieneViajesComoAcompañante())) {
+			$this->verPerfilM->deshabilitar();
+			$puntuacion['error'] = ' ';
+			$viajes = $this->verPerfilM->miMonedero();
+			$puntuacion['monedero'] = 0;
+			foreach ($viajes as $viaje)
+			{
+				$puntuacion['monedero']  += $viaje->monedero;
+			}
+			$puntuacion['monedero'] = round($puntuacion['monedero'],2 );
+
+
+			///////// Calificaciones
+			$puntuacion['puntuacion'] = $this->verPerfilM->misPuntuaciones();
+			if($puntuacion['puntuacion'] == NULL){
+					$puntuacion['puntuacion'] = 0;
+			}elseif($puntuacion['puntuacion'] < 0){
+				$puntuacion['puntuacion'] = 0;
+			}
+			$puntuacion['deshabilito']='deshabilitar';
+
+			$this->load->view('verPerfilV', $puntuacion);
+		}else{
+			$puntuacion['error'] = ' ';
+			$viajes = $this->verPerfilM->miMonedero();
+			$puntuacion['monedero'] = 0;
+			foreach ($viajes as $viaje)
+			{
+				$puntuacion['monedero']  += $viaje->monedero;
+			}
+			$puntuacion['monedero'] = round($puntuacion['monedero'],2 );
+
+
+			///////// Calificaciones
+			$puntuacion['puntuacion'] = $this->verPerfilM->misPuntuaciones();
+			if($puntuacion['puntuacion'] == NULL){
+					$puntuacion['puntuacion'] = 0;
+			}elseif($puntuacion['puntuacion'] < 0){
+				$puntuacion['puntuacion'] = 0;
+			}
+			$puntuacion['deshabilito']='tieneViajes';
+
+			$this->load->view('verPerfilV', $puntuacion);
+		}
+		
+	}
 
 
 
