@@ -7,12 +7,12 @@ class BuscarViajeM extends CI_model{
 
 	//Funcion usada para filtrar por marca los resultados del array
 	function filtrarPorMarca($viaje){
-		return($viaje->marca == $_POST['marca']);
+		return(strtolower($viaje->marca) == strtolower($_POST['marca']));
 	}
 
 	//Funcion usada para filtrar por modelo los resultados del array
 	function filtrarPorModelo($viaje){
-		return($viaje->modelo == $_POST['modelo']);
+		return(strtolower($viaje->modelo) == strtolower($_POST['modelo']));
 	}
 
 	function filtrarPorMarcaModelo($viajes){
