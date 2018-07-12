@@ -162,6 +162,21 @@
                   </div>
                 </div>
 
+                <div class="card" style="margin-bottom: 3px">
+                  <div class="card-header" id="headingNine">
+                    <h5 class="mb-0">
+                      <button style="color: #f17475" class="btn btn-link" data-toggle="collapse" data-target="#collapsNine" aria-expanded="true" aria-controls="collapsNine">
+                        ¿Cómo acepto o rechazo a un copiloto?
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapsNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion">
+                    <div class="card-body" align="justify">
+                      Puedes administrar las peticiones de copilotos para tus viajes dandole al boton "Peticiones" en el menu de usuario.
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
